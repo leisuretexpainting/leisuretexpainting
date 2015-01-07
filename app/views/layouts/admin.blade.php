@@ -168,6 +168,7 @@
                             <a class="active" href="javascript:;"><i class="fa fa-users"></i> Users</a>
                             <ul class="nav nav-second-level">
                                 <li><a href="/admin/users">Manage User</a></li>
+                                <li><a href="/admin/usertypes">Manage User Types</a></li>
                                 <li><a href="/admin/users/create">Create New User</a></li>
                             </ul>
                         </li>

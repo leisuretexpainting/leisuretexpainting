@@ -24,7 +24,8 @@ Route::get('admin/logout','AdminController@logout');
 Route::group(array('before' => 'admin_auth'), function()
 {
     Route::get('/admin','AdminController@dashboard');
-    Route::resource('admin/user', 'UserController');
+    Route::resource('admin/users', 'AdminUserController');
+    Route::resource('/admin/usertypes','AdminUserTypeController');
 });
 
 /*JQuery Fileupload*/
