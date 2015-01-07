@@ -22,9 +22,13 @@ class RoleTableSeeder extends seeder {
 		DB::table('roles')->delete();
 		DB::table('roles')->insert(array(
 			 array('id' => 1,'name' => 'Administrator')
-			,array('id' => 2,'name' => 'Contractor')
-			,array('id' => 3,'name' => 'Supervisor')
-			,array('id' => 4,'name' => 'Quantity Surveyor')
+			,array('id' => 2,'name' => 'Sales')
+			,array('id' => 3,'name' => 'Operations')
+			,array('id' => 4,'name' => 'Senior Estimator')
+			,array('id' => 5,'name' => 'Estimator')
+			,array('id' => 6,'name' => 'Supervisor')
+			,array('id' => 7,'name' => 'Staff')
+			,array('id' => 8,'name' => 'Contractor')
 		));
 	}
 }
