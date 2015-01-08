@@ -6,16 +6,20 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AdminController' => $baseDir . '/app/controllers/AdminController.php',
+    'AdminController' => $baseDir . '/app/controllers/admin/AdminController.php',
+    'AdminTenderController' => $baseDir . '/app/controllers/admin/AdminTenderController.php',
+    'AdminUserController' => $baseDir . '/app/controllers/admin/AdminUserController.php',
+    'AdminUserRoleController' => $baseDir . '/app/controllers/admin/AdminUserRolesController.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
-    'CreateRolesTable' => $baseDir . '/app/database/migrations/2015_01_06_064555_create_roles_table.php',
-    'CreateUsersTable' => $baseDir . '/app/database/migrations/2015_01_06_064557_create_users_table.php',
+    'CreateRolesTable' => $baseDir . '/app/database/migrations/2015_01_08_004012_create_roles_table.php',
+    'CreateUsersTable' => $baseDir . '/app/database/migrations/2015_01_08_004032_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'HomeController' => $baseDir . '/app/controllers/HomeController.php',
     'IlluminateQueueClosure' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/IlluminateQueueClosure.php',
     'Role' => $baseDir . '/app/models/Role.php',
     'RoleTableSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
+    'Tender' => $baseDir . '/app/models/Tender.php',
     'TestCase' => $baseDir . '/app/tests/TestCase.php',
     'User' => $baseDir . '/app/models/User.php',
     'UserTableSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
