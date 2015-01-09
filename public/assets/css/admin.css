@@ -13,11 +13,11 @@ body {
 }
 
 #page-wrapper {
-    padding: 0 15px;
+    padding: 75px 15px 0px 15px;
     min-height: 568px;
     background-color: #fff;
 }
-
+#content-header {padding-top:30px;}
 #content-header .breadcrumb{
     float: right;
     background: transparent;
@@ -44,7 +44,14 @@ body {
 .page-header{
     margin: 35px 0 20px 0;
 }
-
+#wrapper .navbar{
+    margin-bottom:0px;
+    position:fixed;
+    width:100%;
+    height:55px;
+}
+.navbar-header .logo {padding:0px;margin:2px 15px;}
+.navbar-brand>img { height: 100% !important;}
 .navbar-top-links li {
     display: inline-block;
 }
@@ -146,7 +153,7 @@ body {
         z-index: 1;
         position: absolute;
         width: 250px;
-        margin-top: 51px;
+        margin-top: 70px;
     }
 
     .navbar-top-links .dropdown-messages,
@@ -213,7 +220,7 @@ body {
 .chat li .chat-body p {
     margin: 0;
 }
-
+.panel-top-buttons{padding-bottom:15px;height: 50px;}
 .panel .slidedown .glyphicon,
 .chat .glyphicon {
     margin-right: 5px;

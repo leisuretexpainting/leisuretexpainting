@@ -2,6 +2,15 @@
 
 class BaseController extends Controller {
 
+	public 		$data = array();
+	protected 	$user_model;
+	protected 	$userType_model;
+	protected 	$role_model;
+	
+	public function __construct(){
+		$this->user_model 		= new User();
+		$this->role_model 		= new Role();		
+	}
 	/**
 	 * Setup the layout used by the controller.
 	 *

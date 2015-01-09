@@ -25,7 +25,7 @@ Route::group(array('before' => 'admin_auth'), function()
 {
     Route::get('/admin','AdminController@dashboard');
     Route::resource('admin/users', 'AdminUserController');
-    Route::resource('/admin/usertypes','AdminUserTypeController');
+    Route::resource('/admin/userroles','AdminUserRolesController');
 });
 
 /*JQuery Fileupload*/

@@ -36,7 +36,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom:0px;position:fixed;width:100%">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -44,7 +44,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/admin" style="padding:0px;margin:10px 14px;"><img src="/assets/img/leisuretexpainting-logo.png" alt="Leisuretexpainting" style="height:100%"/></a>
+                <a class="navbar-brand logo" href="/admin"><img src="/assets/img/leisuretexpainting-logo.png" alt="Leisuretexpainting"/></a>
             </div>
             <ul class="nav navbar-top-links navbar-right">
                 <!--
@@ -168,7 +168,7 @@
                             <a class="active" href="javascript:;"><i class="fa fa-users"></i> Users</a>
                             <ul class="nav nav-second-level">
                                 <li><a href="/admin/users">Manage User</a></li>
-                                <li><a href="/admin/usertypes">Manage User Types</a></li>
+                                <li><a href="/admin/userroles">Manage User Roles</a></li>
                                 <li><a href="/admin/users/create">Create New User</a></li>
                             </ul>
                         </li>
@@ -185,10 +185,25 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-        <div id="page-wrapper" style="padding-top:30px;">
+        <div id="page-wrapper">
             @yield('content')
         </div>
         <!-- /#page-wrapper -->
+        <div id="ltp-confirm-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 
     <script src="/assets/js/jquery.js"></script>
