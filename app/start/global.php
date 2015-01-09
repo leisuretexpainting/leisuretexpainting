@@ -80,3 +80,5 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+/*Add helper file*/
+require app_path().'/helpers.php';
