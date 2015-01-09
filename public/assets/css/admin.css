@@ -17,7 +17,7 @@ body {
     min-height: 568px;
     background-color: #fff;
 }
-#content-header {padding-top:30px;}
+#content-header {padding-top:30px;margin-bottom:10px;}
 #content-header .breadcrumb{
     float: right;
     background: transparent;
