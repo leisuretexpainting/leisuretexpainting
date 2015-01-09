@@ -14,7 +14,7 @@ class CreateRolesTable extends Migration {
 	{		
 		Schema::create('roles',function($table){
 			$table->increments('id');
-			$table->string('name')->unique();
+			$table->string('title')->unique();
 			$table->integer('is_active')->default(1);
 			$table->timestamps();
 			$table->softDeletes();
