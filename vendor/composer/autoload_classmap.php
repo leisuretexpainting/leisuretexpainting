@@ -7,9 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AdminController' => $baseDir . '/app/controllers/admin/AdminController.php',
+    'AdminDataController' => $baseDir . '/app/controllers/admin/AdminDataController.php',
     'AdminTenderController' => $baseDir . '/app/controllers/admin/AdminTenderController.php',
     'AdminUserController' => $baseDir . '/app/controllers/admin/AdminUserController.php',
-    'AdminUserRoleController' => $baseDir . '/app/controllers/admin/AdminUserRolesController.php',
+    'AdminUserRolesController' => $baseDir . '/app/controllers/admin/AdminUserRolesController.php',
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
     'CreateRolesTable' => $baseDir . '/app/database/migrations/2015_01_08_004012_create_roles_table.php',
     'CreateUsersTable' => $baseDir . '/app/database/migrations/2015_01_08_004032_create_users_table.php',
