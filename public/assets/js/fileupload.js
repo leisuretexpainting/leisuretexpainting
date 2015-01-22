@@ -1,25 +1,21 @@
 
-var bc_fileupload = function(){
+var ltp_fileupload = function(){
     var self = this;
 
-    this.init_fileupload = function (){
+    this.init = function (){
+        
 
-        self.init_fileupload_actions();
-
-        $('#upload_item_image').fileupload({
+        $('#fileupload-tender-documents').fileupload({
+            url             : '/upload/tenderdocuments',
             dataType        : 'json',
             autoUpload      : true,
-            acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
-            maxFileSize     : 5000000, // 5 MB
-            previewMaxWidth : 100,
-            previewMaxHeight: 100,
-            previewCrop     : true
+            //acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
+            maxFileSize     : 25000000,
         }).on('fileuploadadd',function(e,data){
             //fileuploadadd
         }).on('fileuploadprocessalways',function(e,data){
             //fileuploadprocessalways
         }).on('fileuploadprogressall',function(e,data){
-            
                 $('#fileupload-progress').show();
                 var progress    = parseInt(data.loaded / data.total * 100, 10);
                 $('#fileupload-progress .progress-bar').css('width',progress + '%');
@@ -27,181 +23,79 @@ var bc_fileupload = function(){
                 if(progress == 100){
                     $('#fileupload-progress').hide();
                     $('#fileupload-progress .progress-bar').css('width','0%');  
-                }
+                }                
         }).on('fileuploaddone',function(e,data){
-            var html = "";
-            $('#item-image-error').hide()
-            $('#fileupload-delete-all').show();
-            $.each(data.result.files, function (index, file) {
-                if(file.url){
-                    
-                    display_style = '';
-                    if($('.fileupload-item').length == 0 && index == 0){
-                        $('#item_primary_image').val(file.name);
-                        display_style = 'display:none;'
+
+                var html = "";                
+                $('#fileupload-delete-all').show();
+                $.each(data.result.files, function (index, file) {
+                    if(file.url){
+
+                        html += '<div class="upload-item row">';
+                        html += '<div class="col-lg-1">';
+                        if(undefined != file.thumbnailUrl){
+                            html += '<a href="javascript:;" class="thumbnail">';
+                            html += '<img src="'+file.thumbnailUrl+'"/>';
+                            html += '</a>';
+                        }else{
+                                html += '<a href="javascript:;" class="thumbnail">';
+                                html += '<span class="fa fa-file" style="font-size:30px;"></span>&nbsp;';
+                                html += '</a>';
+                        }
+
+                        html += '</div>';
+                        html += '<div class="col-lg-5">';
+                        html += '<span class="fa fa-paperclip" style="font-size:30px;"></span>&nbsp;';
+                        html += '<span>'+file.realName+'</span>';
+                        html += '<input type="hidden" name="upload_name[]" value="'+file.name+'"/>';
+                        html += '<input type="hidden" name="upload_text[]" value="'+file.realName+'"/>';
+                        html += '</div>';
+                        html += '<div class="col-lg-5">';
+                        html += '<input name="upload_note[]" class="form-control" placeholder="add note to this file"/>';
+                        html += '</div>';
+                        html += '<div class="col-lg-1">';
+                        html += '<button type="button" class="btn btn-sm btn-danger btn-delete-fileupload" delete-url="'+file.deleteUrl+'"><i class="fa fa-trash-o"></i> Remove</button>';
+                        html += '</div>';
+                        html += '</div>';
+
+                         $('#fileupload-preview').append(html);
+                        self.init_fileupload_actions();
                     }
+                });
 
-                    html += '<tr class="fileupload-item template-upload fade in">';
-                    html += '<td><span class="preview">';
-                    html += '<img src="'+file.thumbnailUrl+'" width="80" height="45"/></span></td>';
-                    html += '<td>';
-                    html += '<input name="item_images[]" class="image-name" type="hidden" value="'+file.name+'">';
-                    html += '<p class="name">'+file.realName+'</p>';
-                    html += '<strong class="error text-danger"></strong>';
-                    html += '</td>';
-                    html += '<td>';
-                    html += '<button type="button" class="btn-set-as-primary btn btn-sm btn-info" style="'+display_style+'" style="cursor:pointer;">';
-                    html += '<i class="glyphicon glyphicon-ok"></i>';
-                    html += '<span>Set as Primary</span>';
-                    html += '</td>';
-                    html += '<td>';
-                    html += '<button type="button" class="btn-delete-fileupload btn btn-sm btn-danger delete" delete-url="'+file.deleteUrl+'" style="cursor:pointer;">';
-                    html += '<i class="glyphicon glyphicon-trash"></i>';
-                    html += '<span>Delete</span>';
-                    html += '</button>';
-                    html += '</td>';
-                    html += '</tr>';
-
-                    $('#uploaded_images').append(html);
-                    self.init_fileupload_actions();
-                }
-            });
         }).on('fileuploadfail',function(e,data){
             //fileuploadfail
         }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    } 
 
-    $('#upload-item-video').fileupload({
-            dataType        : 'json',
-            autoUpload      : true,
-            acceptFileTypes : /(\.|\/)(mp4|avi|flv|mov|wmv)$/i,
-            maxFileSize     : 25000000, // 5 MB
-            previewMaxWidth : 100,
-            previewMaxHeight: 100,
-            previewCrop     : true
-        }).on('fileuploadprogressall',function(e,data){
-            
-                $('#fileupload-progress').show();
-                var progress    = parseInt(data.loaded / data.total * 100, 10);
-                $('#fileupload-progress .progress-bar').css('width',progress + '%');
-                
-                if(progress == 100){
-                    $('#fileupload-progress').hide();
-                    $('#fileupload-progress .progress-bar').css('width','0%');  
-                }
-        }).on('fileuploaddone',function(e,data){
-
-            $.each(data.result.files, function (index, file) {
-                if(file.url){
-                    $('#item_video').val(file.name);
-                    $('#item-video-preview').attr('src',file.thumbnailUrl)
-                    $('#delete-item-video').attr('delete-url',file.deleteUrl);
-                    $('#delete-item-video').show();
-                    $('#upload-item-video').parent().find('span').text('Replace Video');
-                }
-            });
-
-        });
-
-    $('#upload-discount-image').fileupload({
-            dataType        : 'json',
-            autoUpload      : true,
-            acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
-            maxFileSize     : 5000000, // 5 MB
-            previewMaxWidth : 100,
-            previewMaxHeight: 100,
-            previewCrop     : true
-        }).on('fileuploadprogressall',function(e,data){
-            
-                $('#fileupload-progress').show();
-                var progress    = parseInt(data.loaded / data.total * 100, 10);
-                $('#fileupload-progress .progress-bar').css('width',progress + '%');
-                
-                if(progress == 100){
-                    $('#fileupload-progress').hide();
-                    $('#fileupload-progress .progress-bar').css('width','0%');  
-                }
-        }).on('fileuploaddone',function(e,data){
-
-            $.each(data.result.files, function (index, file) {
-                if(file.url){
-                    $('#discount-image-new').val(file.name);
-                    $('#discount-image-preview').attr('src',file.thumbnailUrl);
-                }
-            });
-
-        });
-
-    $('#upload-profile-image').fileupload({
-            dataType        : 'json',
-            autoUpload      : true,
-            acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
-            maxFileSize     : 5000000, // 5 MB
-            previewMaxWidth : 100,
-            previewMaxHeight: 100,
-            previewCrop     : true
-        }).on('fileuploadprogressall',function(e,data){
-            
-                $('#fileupload-progress').show();
-                var progress    = parseInt(data.loaded / data.total * 100, 10);
-                $('#fileupload-progress .progress-bar').css('width',progress + '%');
-                
-                if(progress == 100){
-                    $('#fileupload-progress').hide();
-                    $('#fileupload-progress .progress-bar').css('width','0%');  
-                }
-        }).on('fileuploaddone',function(e,data){
-
-            $.each(data.result.files, function (index, file) {
-                if(file.url){
-                    $('#profile_image').val(file.name);
-                    $('#profile-image-preview').attr('src',file.thumbnailUrl)
-                    $('#delete-profile-image').attr('delete-url',file.deleteUrl);
-                    $('#delete-profile-image').show();
-                    $('#upload-profile-image').parent().find('span').text('Replace Image');
-                }
-            });
-
-        });
-
-    }  
     this.init_fileupload_actions = function(){
 
         $('.btn-delete-fileupload').click(function(){
             var current_item    = $(this);
-            var image_name      = $(this).parent().parent().find('.image-name').val()
-            var primary_image   = $('#item_primary_image').val();
             $.ajax({
                 url     : current_item.attr('delete-url'),
                 type    : 'DELETE',
                 success : function(data){
                     current_item.parent().parent().remove();
-                    if(image_name == primary_image){
-                        $('#item_primary_image').val($('.image-name').eq(0).val());
-                        $('.image-name').eq(0).parent().parent().find('.btn-set-as-primary').hide();
-                    }
-
                 }
             });
         });
 
         $('#fileupload-delete-all').click(function(){
 
-            var fileupload_items = $('.fileupload-item');
+            var fileupload_items = $('.upload-item');
             $.each(fileupload_items,function(index,item){
 
-                var delete_url      = $(item).find('.btn-delete-fileupload').attr('delete-url');
-                var image_name      = $(item).find('.image-name').val();
-
+                var delete_url      = $(item).find('.btn-delete-fileupload').attr('delete-url');                
                 $.ajax({
                     url     : delete_url,
                     type    : 'DELETE',
                     success : function(data){
-                        item.remove();
+                        $(item).remove();
                     }
                 });
             });
-
         });
 
         $('.btn-set-as-primary').click(function(){
@@ -257,6 +151,6 @@ var bc_fileupload = function(){
     }
 }
 
-window.bc_fileupload = new bc_fileupload();
-window.bc_fileupload.init_fileupload();
+window.ltp_fileupload = new ltp_fileupload();
+window.ltp_fileupload.init();
 

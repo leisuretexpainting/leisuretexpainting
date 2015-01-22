@@ -12,16 +12,20 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/plugins/timeline.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/AdminLTE.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/typeahead.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/plugins/morris.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-select/bootstrap-select.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/plugins/dataTables.bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/plugins/JQueryFileUpload/jquery.fileupload.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/plugins/JQueryFileUpload/jquery.fileupload-ui.css"/>
-    <link rel="stylesheet" type="text/css" href="/packages/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/packages/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/jvectormap/jquery-jvectormap-1.2.2.css"/>        
     <link rel="stylesheet" type="text/css" href="/assets/css/fullcalendar/fullcalendar.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/daterangepicker/daterangepicker-bs3.css"/>
     <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/packages/jqueryfileupload/css/jquery.fileupload.css"/>
+    <link rel="stylesheet" type="text/css" href="/packages/jqueryfileupload/css/jquery.fileupload-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="/packages/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/packages/ionicons/css/ionicons.min.css">
+
     @section('header-css')
     @show
     <link rel="stylesheet" type="text/css" href="/assets/css/custom.css">
@@ -173,7 +177,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a class="active" href="javascript:;"><i class="fa fa-line-chart"></i> Tenders</a>
+                            <a class="active" href="javascript:;"><i class="fa fa-file"></i> Tenders</a>
                             <ul class="nav nav-second-level">
                                 <li><a href="/admin/tenders">Manage Tenders</a></li>
                                 <li><a href="/admin/tenders/create">Create New Tender</a></li>
@@ -211,6 +215,27 @@
     <script src="/assets/js/jquery.ui.widget.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
     <script src="/assets/js/plugins/metisMenu/metisMenu.min.js"></script>
+    <script src="/assets/js/plugins/bootstrap-select/bootstrap-select.js"></script>
+    <script src="/assets/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/assets/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/assets/js/plugins/typeahead/typeahead.js"></script>
+    <script src="/assets/js/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/assets/js/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/assets/js/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="/assets/js/plugins/daterangepicker/daterangepicker.js"></script>
+    
+    
+    <script src="/packages/jqueryfileupload/js/jquery.fileupload.js"></script>
+    <script src="/packages/jqueryfileupload/js/jquery.iframe-transport.js"></script>
+    <script src="/packages/jqueryfileupload/js/jquery.fileupload-process.js"></script>
+    <script src="/packages/jqueryfileupload/js/jquery.fileupload-validate.js"></script>
+    <script src="/packages/jqueryfileupload/js/jquery.fileupload-ui.js"></script>
+    <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+    <!--[if (gte IE 8)&(lt IE 10)]>
+    <script src="/assets/js/plugins/JQueryFileUpload/cors/jquery.xdr-transport.js"></script>
+    <![endif]-->
+
+    <script src="/assets/js/fileupload.js"></script>
     <script src="/assets/js/admin.js"></script>
     @section('footer-js')
     @show

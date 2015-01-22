@@ -9,19 +9,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait;
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
-
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password', 'remember_token');
+	protected $table 	= 'users';
+	protected $hidden 	= array('password','remember_token');
+	protected $appends 	= array('name','is_admin');
 
 	/*Methods*/
 	public function getAll(){
@@ -41,11 +31,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$user->first_name 		= (isset($data['first_name']) && !empty($data['first_name'])) 			? $data['first_name'] 							: null;
 		$user->last_name 		= (isset($data['last_name']) && !empty($data['last_name'])) 			? $data['last_name'] 							: null;
 		$user->birthdate 		= (isset($data['birthdate']) && !empty($data['birthdate'])) 			? date('Y-m-d',strtotime($data['birthdate'])) 	: null;
-		$user->address 			= (isset($data['address']) && !empty($data['address']))					? $data['address'] 								: null;
-		$user->city 			= (isset($data['city']) && !empty($data['city']))						? $data['city'] 								: null;
-		$user->state 			= (isset($data['state']) && !empty($data['state']))						? $data['state'] 								: null;
-		$user->zip_code 		= (isset($data['zip_code']) && !empty($data['zip_code']))				? $data['zip_code'] 							: null;
-		$user->country_code 	= (isset($data['country_code']) && !empty($data['country_code']))		? $data['country_code'] 						: null;
+		$user->address_street 	= (isset($data['address_street']) && !empty($data['address_street']))	? $data['address_street'] 						: null;
+		$user->address_suburb 	= (isset($data['address_suburb']) && !empty($data['address_suburb']))	? $data['address_suburb'] 						: null;
+		$user->address_state 	= (isset($data['address_state']) && !empty($data['address_state']))		? $data['address_state'] 						: null;
+		$user->address_zip 		= (isset($data['address_zip']) && !empty($data['address_zip']))			? $data['address_zip'] 							: null;
+		$user->country 			= (isset($data['country']) && !empty($data['country']))					? $data['country'] 								: null;
 		$user->phone 			= (isset($data['phone']) && !empty($data['phone'])) 					? $data['phone'] 								: null;
 		if($user->save())
 			return $user;
@@ -65,11 +55,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$user->first_name 		= (isset($data['first_name']) && !empty($data['first_name'])) 			? $data['first_name'] 							: $user->first_name;
 			$user->last_name 		= (isset($data['last_name']) && !empty($data['last_name'])) 			? $data['last_name'] 							: $user->last_name;
 			$user->birthdate 		= (isset($data['birthdate']) && !empty($data['birthdate'])) 			? date('Y-m-d',strtotime($data['birthdate'])) 	: $user->birthdate;
-			$user->address 			= (isset($data['address']) && !empty($data['address']))					? $data['address'] 								: $user->address;
-			$user->city 			= (isset($data['city']) && !empty($data['city']))						? $data['city'] 								: $user->city;
-			$user->state 			= (isset($data['state']) && !empty($data['state']))						? $data['state'] 								: $user->state;
-			$user->zip_code 		= (isset($data['zip_code']) && !empty($data['zip_code']))				? $data['zip_code'] 							: $user->zip_code;
-			$user->country_code 	= (isset($data['country_code']) && !empty($data['country_code']))		? $data['country_code'] 						: $user->country_code;
+			$user->address_street 	= (isset($data['address_street']) && !empty($data['address_street']))	? $data['address_street'] 						: $user->address_street;
+			$user->address_suburb 	= (isset($data['address_suburb']) && !empty($data['address_suburb']))	? $data['address_suburb'] 						: $user->address_suburb;
+			$user->address_state 	= (isset($data['address_state']) && !empty($data['address_state']))		? $data['address_state'] 						: $user->address_state;
+			$user->address_zip 		= (isset($data['address_zip']) && !empty($data['address_zip']))			? $data['address_zip'] 							: $user->address_zip;
+			$user->country 			= (isset($data['country']) && !empty($data['country']))					? $data['country'] 								: $user->country;
 			$user->phone 			= (isset($data['phone']) && !empty($data['phone'])) 					? $data['phone'] 								: $user->phone;
 			if($user->save())
 				return $user;
@@ -80,10 +70,27 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		
 	}
 
-	/*Scopes*/
+	/*Accessors*/
+	public function getIsAdminAttribute(){
+		return $this->attributes['is_admin'] = ($this->role_id == 1) ? true : false;
+	}
+	public function getNameAttribute(){
+		return $this->attributes['name'] = $this->first_name.' '.$this->last_name;
+	}
+
+	/*Query Scopes*/
+	public function scopeAdministrator($query){
+		return $query->where('role_id',1);
+	}
+	public function scopeSales($query){
+		return $query->where('role_id',2);
+	}
+	public function scopeContractor($query){
+		return $query->where('role_id',8);
+	}
 
 	/*Relationships*/
 	public function role(){
 		return $this->hasOne('Role','id','role_id');
-	}
+	}	
 }

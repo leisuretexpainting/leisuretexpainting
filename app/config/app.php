@@ -122,6 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
+		'Chumper\Zipper\ZipperServiceProvider',
 	),
 
 	/*
@@ -189,7 +190,7 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Debugbar' 			=> 'Barryvdh\Debugbar\Facade',
-
+		'Zipper' 			=> 'Chumper\Zipper\Zipper',
 	),
 
 );

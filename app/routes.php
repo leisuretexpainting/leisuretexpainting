@@ -23,13 +23,18 @@ Route::post('admin/login','AdminController@login');
 Route::get('admin/logout','AdminController@logout');
 Route::group(array('before' => 'admin_auth'), function()
 {
+	/*Json Urls*/
+	Route::get('admin/data/{name}.json',"AdminDataController@index");
+
     Route::get('/admin','AdminController@dashboard');
     Route::resource('admin/users', 'AdminUserController');
     Route::resource('/admin/userroles','AdminUserRolesController');
     Route::resource('/admin/tenders','AdminTenderController');
+
+    Route::get('/admin/download/{directory}/{name?}','DownloadController@download');
 });
 
 /*JQuery Fileupload*/
-//Route::get('upload/{resource}','UploadController@upload');
-//Route::post('upload/{resource}','UploadController@upload');
-//Route::delete('upload/{resource}','UploadController@upload');
+Route::get('upload/{resource}','UploadController@upload');
+Route::post('upload/{resource}','UploadController@upload');
+Route::delete('upload/{resource}','UploadController@delete');

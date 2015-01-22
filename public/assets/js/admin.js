@@ -25,10 +25,12 @@ $(function() {
 var ltp_admin = function(){
 
     var self = this;
+    var selectedContractor;
 
     this.init_admin = function(){
 
         self.init_modals();
+
         /*admin Login*/
         $('#form-admin-login').submit(function(e){
             $.ajax({
@@ -128,7 +130,6 @@ var ltp_admin = function(){
                 }
             });
             e.preventDefault();
-            return false;
         });
 
         /*Update User*/
@@ -144,7 +145,6 @@ var ltp_admin = function(){
                     $('div.form-group.has-error').removeClass('has-error');
 
                     if(result.success){
-                        self.clear_form_create_user();
                         $('.alert-success').show();
                     }else{
                         $('.alert-success').hide();
@@ -177,8 +177,14 @@ var ltp_admin = function(){
                 { 'bSortable': false, 'aTargets': [ 2,4 ] }
             ]
         });
-    }
 
+        $('#admin-tenders-list').dataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 0,6 ] }
+            ]
+        });
+    }
+    
     this.init_modals = function(){
 
         $('.btn-userrole-deactivate').unbind().click(function(e){
@@ -229,6 +235,383 @@ var ltp_admin = function(){
         });
     }
 
+    this.init_tender_scripts = function(){
+        self.init_admin();        
+        self.init_typeahead_contractors();
+        self.init_tender_actions();
+
+        $("#job_due_date").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+    }
+
+    this.init_typeahead_contractors = function(){
+        /*contractors.json*/
+        var contractor = $('#contractor_name');
+        $.get('/admin/data/contractors.json', function(data){
+            if(data.length > 0){
+                contractor.typeahead({ source:data });
+            }
+        },'json');
+
+        contractor.change(function(){
+                    $('#new_contractor').val(0);
+                    var current     = contractor.val();
+                    var data        = contractor.typeahead('getActive');
+
+                    $('#table-contact-details').hide();
+                    $('#table-new-contact').hide();
+
+                    if(data && data.name.toLowerCase() == current.toLowerCase()){
+                        $('#contractor_id').val(data.id);
+                        $('#contractor_business_address_street').val(data.business_address_street);
+                        $('#contractor_business_address_suburb').val(data.business_address_suburb);
+                        $('#contractor_business_address_state').val(data.business_address_state);
+                        $('#contractor_business_address_zip').val(data.business_address_zip);
+                        $('#contractor_postal_address_street').val(data.postal_address_street);
+                        $('#contractor_postal_address_suburb').val(data.postal_address_suburb);
+                        $('#contractor_postal_address_state').val(data.postal_address_state);
+                        $('#contractor_postal_address_zip').val(data.abn);
+                        $('#contractor_abn').val(data.business_address_zip);
+                        
+                        self.selectedContractor = data;
+                        self.create_contractor_contact_list(data);
+                        self.init_tender_actions(data);
+                        
+                        $('#edit-contractor-details').show();
+                        $('#add-new-contact').show();
+
+                        contractor.parent().removeClass('has-error');
+                        contractor.parent().find('label').hide();
+                    }else{
+                        $('#contractor_id').val('');
+                        $('#contractor_business_address_street').val('');
+                        $('#contractor_business_address_suburb').val('');
+                        $('#contractor_business_address_state').val('');
+                        $('#contractor_business_address_zip').val('');
+                        $('#contractor_postal_address_street').val('');
+                        $('#contractor_postal_address_suburb').val('');
+                        $('#contractor_postal_address_state').val('');
+                        $('#contractor_postal_address_zip').val('');
+                        $('#contractor_abn').val('');
+
+                        $('#contact_id').html('<option value="">Select Contact Details</option>');
+                        $('#contact_id').selectpicker('refresh');
+                        $('#contact_id').selectpicker('val','');
+                        $('#table-select-contact-details').show();
+                    }
+                });
+    }
+
+    this.create_contractor_contact_list = function(){
+
+        var contractor_id   = $('#contractor_id').val();
+        var sourceUrl       = '/admin/data/contacts.json?1=1';
+        if(contractor_id != '') sourceUrl += '&contractor_id='+contractor_id;
+        sourceUrl += '&group_by=grade';
+
+        $.get(sourceUrl, function(data){
+
+            $('#contact_id').html('');
+            var contactgroups = '';
+
+            $.each(data,function(grade,contacts){
+                contactgroups = '<optgroup label="Grade '+grade+'">';
+                $.each(contacts,function(i,contact){ contactgroups += '<option value="'+contact.id+'">'+contact.name+'</option>'; });
+                contactgroups += '</optgroup>';
+            });
+            $('#contact_id').append(contactgroups);
+            $('#contact_id').selectpicker('refresh');
+            $('#contact_id').selectpicker('val','');
+
+        },'json');
+    }
+    
+    this.init_tender_actions = function(){
+
+        $('#edit-contractor-details').unbind().click(function(){
+                $('#contractor_name').typeahead('destroy');
+                $('#contractor_business_address_street').removeAttr('readonly');
+                $('#contractor_business_address_suburb').removeAttr('readonly');
+                $('#contractor_business_address_state').removeAttr('readonly');
+                $('#contractor_business_address_zip').removeAttr('readonly');
+                $('#contractor_postal_address_street').removeAttr('readonly');
+                $('#contractor_postal_address_suburb').removeAttr('readonly');
+                $('#contractor_postal_address_state').removeAttr('readonly');
+                $('#contractor_postal_address_zip').removeAttr('readonly');
+                $('#contractor_abn').removeAttr('readonly');
+
+                $('#save-contractor-details').show();
+                $('#cancel-contractor-details').show();
+
+                $('#search-contractor-details').hide();
+                $('#add-new-contractor').hide();
+                $(this).hide();
+        });
+
+        $('#save-contractor-details').unbind().click(function(){
+                self.init_typeahead_contractors();
+                $('#contractor_business_address_street').prop('readonly',true);
+                $('#contractor_business_address_suburb').prop('readonly',true);
+                $('#contractor_business_address_state').prop('readonly',true);
+                $('#contractor_business_address_zip').prop('readonly',true);
+                $('#contractor_postal_address_street').prop('readonly',true);
+                $('#contractor_postal_address_suburb').prop('readonly',true);
+                $('#contractor_postal_address_state').prop('readonly',true);
+                $('#contractor_postal_address_zip').prop('readonly',true);
+                $('#contractor_abn').prop('readonly',true);
+                
+                $('#edit-contractor-details').show();
+                $('#add-new-contractor').show();
+
+                $('#cancel-contractor-details').hide();
+                $(this).hide();
+        });
+
+        $('#cancel-contractor-details').unbind().click(function(){
+                var contractor = self.selectedContractor;
+                self.init_typeahead_contractors();
+                $('#contractor_name').val(contractor.name);
+                $('#contractor_business_address_street').val(contractor.business_address_street).prop('readonly',true);
+                $('#contractor_business_address_suburb').val(contractor.business_address_suburb).prop('readonly',true);
+                $('#contractor_business_address_state').val(contractor.business_address_state).prop('readonly',true);
+                $('#contractor_business_address_zip').val(contractor.business_address_zip).prop('readonly',true);
+                $('#contractor_postal_address_street').val(contractor.postal_address_street).prop('readonly',true);
+                $('#contractor_postal_address_suburb').val(contractor.postal_address_suburb).prop('readonly',true);
+                $('#contractor_postal_address_state').val(contractor.postal_address_state).prop('readonly',true);
+                $('#contractor_postal_address_zip').val(contractor.abn).prop('readonly',true);
+                $('#contractor_abn').val(contractor.business_address_zip).prop('readonly',true);
+                
+                $('#edit-contractor-details').show();
+                $('#add-new-contractor').show();
+
+                $('#save-contractor-details').hide();
+                $(this).hide();
+        });
+
+        $('#add-new-contractor').unbind().click(function(){
+                
+                $('#new_contractor').val(1);
+                $('#new_contact').val(1);
+
+                $('#contractor_id').val('');
+                $('#contractor_name').unbind().val('').attr('placeholder','new contractor name').typeahead('destroy').focus();
+                $('#contractor_business_address_street').val('').removeAttr('readonly');
+                $('#contractor_business_address_suburb').val('').removeAttr('readonly');
+                $('#contractor_business_address_state').val('').removeAttr('readonly');
+                $('#contractor_business_address_zip').val('').removeAttr('readonly');
+                $('#contractor_postal_address_street').val('').removeAttr('readonly');
+                $('#contractor_postal_address_suburb').val('').removeAttr('readonly');
+                $('#contractor_postal_address_state').val('').removeAttr('readonly');
+                $('#contractor_postal_address_zip').val('').removeAttr('readonly');
+                $('#contractor_abn').val('').removeAttr('readonly');
+                $('#edit-contractor-details').hide();
+                $('#search-contractor-details').show();
+                $('#contact_id').html('').selectpicker('refresh');
+                
+                $('#table-select-contact-details').hide();
+                $('#table-contact-details').hide();
+                $('#table-new-contact').show();
+                $('#search-contact-details').hide();
+                $(this).hide();
+        });
+
+        $('#search-contractor-details').unbind().click(function(){
+            
+                self.init_typeahead_contractors();
+                $('#new_contractor').val(0);
+                $('#new_contact').val(0);
+
+                $('#contractor_name').val('').attr('placeholder','search contractor name').focus();
+                $('#contractor_business_address_street').val('').prop('readonly',true);
+                $('#contractor_business_address_suburb').val('').prop('readonly',true);
+                $('#contractor_business_address_state').val('').prop('readonly',true);
+                $('#contractor_business_address_zip').val('').prop('readonly',true);
+                $('#contractor_postal_address_street').val('').prop('readonly',true);
+                $('#contractor_postal_address_suburb').val('').prop('readonly',true);
+                $('#contractor_postal_address_state').val('').prop('readonly',true);
+                $('#contractor_postal_address_zip').val('').prop('readonly',true);
+                $('#contractor_abn').val('').prop('readonly',true);
+                $('#edit-contractor-details').hide();
+                $('#add-new-contractor').show();
+                $('#contact_id').html('').selectpicker('refresh');
+                
+                $('#table-select-contact-details').show();
+                $('#table-contact-details').hide();
+                $('#table-new-contact').hide();
+                $(this).hide();
+        });
+
+        $('#add-new-contact').unbind().click(function(){
+
+            $('#contact_id').val('');
+            $('#new_contact').val(1);
+
+            $('#table-new-contact .has-error label').hide();
+            $('#table-new-contact .has-error').removeClass('has-error');
+            $('#table-new-contact').show();
+            $('#table-select-contact-details').hide();
+            $('#table-contact-details').hide();
+            $('#search-contact-details').show();
+        });
+
+        $('#search-contact-details').unbind().click(function(){
+
+            $('#contact_id').val('');
+            $('#new_contact').val(0);
+
+            $('#new_contact_grade').val('');
+            $('#new_contact_name').val('');
+            $('#new_contact_email').val('');
+            $('#new_contact_phone').val('');
+
+            $('#table-select-contact-details').show();
+            $('#table-contact-details').hide();
+            $('#table-new-contact').hide();            
+
+            self.create_contractor_contact_list();
+        });
+
+        $('select#contact_id').change(function(){
+            var id = $(this).val();
+            var sourceUrl       = '/admin/data/contacts.json?id='+id;
+            $.get(sourceUrl, function(contact){
+                if(contact != null){
+                    $('#contact_grade').val(contact.grade);
+                    $('#contact_name').val(contact.name);
+                    $('#contact_email').val(contact.email);
+                    $('#contact_phone').val(contact.phone);
+
+                    $('#table-contact-details .has-error label').hide();
+                    $('#table-contact-details .has-error').removeClass('has-error');
+                    $('#table-contact-details').show();
+
+                }else{
+                    $('#contact_grade').val('');
+                    $('#contact_name').val('');
+                    $('#contact_email').val('');
+                    $('#contact_phone').val('');
+                    $('#table-contact-details').hide();
+                }
+            },'json');
+        });
+        
+        $('.btn-remove-tender').unbind().click(function(e){
+            var current = $(this);
+            var id = $(this).attr('tender-id');
+            $.ajax({
+                type    : 'delete',
+                url     : '/admin/tenders/'+id,
+                dataType: 'json',
+                success : function(result){
+                    if(result.success)
+                        current.parent().parent().parent().remove();                    
+                }
+            });
+            e.preventDefault();
+        });
+
+        $('#form-create-tender').unbind().submit(function(e){
+            $.ajax({
+                type    : 'post',
+                url     : '/admin/tenders',
+                data    : $(this).serialize(),
+                dataType: 'json',
+                success : function(result){
+                    $('div.form-group.has-error label').hide();
+                    $('div.form-group.has-error').removeClass('has-error');
+
+                    if(result.success){
+                        self.clear_form_create_tender();
+                        $('.alert-success').show();
+                    }else{
+                        $('.alert-success').hide();
+                        if(undefined != result.error_message.contractor_id) { $('#contractor_name').parent().parent().addClass('has-error');$('#contractor_name').parent().parent().find('label').text(result.error_message.contractor_id);$('#contractor_name').parent().parent().find('label').show(); }
+                        if(undefined != result.error_message.contractor_name) { $('#contractor_name').parent().parent().addClass('has-error');$('#contractor_name').parent().parent().find('label').text(result.error_message.contractor_name);$('#contractor_name').parent().parent().find('label').show(); }
+                        if(undefined != result.error_message.contractor_business_address_street) { self.show_form_group_error('contractor_business_address_street',result.error_message.contractor_business_address_street); }
+                        if(undefined != result.error_message.contractor_business_address_suburb) { self.show_form_group_error('contractor_business_address_suburb',result.error_message.contractor_business_address_suburb); }
+                        if(undefined != result.error_message.contractor_business_address_state) { self.show_form_group_error('contractor_business_address_state',result.error_message.contractor_business_address_state); }
+                        if(undefined != result.error_message.contractor_business_address_zip) { self.show_form_group_error('contractor_business_address_zip',result.error_message.contractor_business_address_zip); }
+                        if(undefined != result.error_message.contractor_postal_address_street) { self.show_form_group_error('contractor_postal_address_street',result.error_message.contractor_postal_address_street); }
+                        if(undefined != result.error_message.contractor_postal_address_suburb) { self.show_form_group_error('contractor_postal_address_suburb',result.error_message.contractor_postal_address_suburb); }
+                        if(undefined != result.error_message.contractor_postal_address_state) { self.show_form_group_error('contractor_postal_address_state',result.error_message.contractor_postal_address_state); }
+                        if(undefined != result.error_message.contractor_postal_address_zip) { self.show_form_group_error('contractor_postal_address_zip',result.error_message.contractor_postal_address_zip); }
+                        if(undefined != result.error_message.contractor_abn) { self.show_form_group_error('contractor_abn',result.error_message.contractor_abn); }
+
+                        if($('#contractor_id').val() != '' && $('#new_contact').val() == 0 && undefined != result.error_message.contact_id) { $('#contact_id').parent().parent().addClass('has-error');$('#contact_id').parent().parent().find('label').text(result.error_message.contact_id);$('#contact_id').parent().parent().find('label').show(); }
+                        if($('#new_contact').val() == 0 && undefined != result.error_message.contact_email) { self.show_form_group_error('contact_email',result.error_message.contact_email);   }
+                        if($('#new_contact').val() == 0 && undefined != result.error_message.contact_phone) { self.show_form_group_error('contact_phone',result.error_message.contact_phone);   }
+                        if($('#new_contact').val() == 1 && undefined != result.error_message.contact_name)  { self.show_form_group_error('new_contact_name',result.error_message.contact_name);     }
+                        if($('#new_contact').val() == 1 && undefined != result.error_message.contact_email) { self.show_form_group_error('new_contact_email',result.error_message.contact_email);   }
+                        if($('#new_contact').val() == 1 && undefined != result.error_message.contact_phone) { self.show_form_group_error('new_contact_phone',result.error_message.contact_phone);   }
+                        if($('#new_contact').val() == 1 && undefined != result.error_message.contact_grade) { self.show_form_group_error('new_contact_grade',result.error_message.contact_grade);   }
+
+                        if(undefined != result.error_message.job_due_date)          { $('#job_due_date').parent().parent().addClass('has-error');$('#job_due_date').parent().parent().find('label').text(result.error_message.job_due_date);$('#job_due_date').parent().parent().find('label').show(); }
+                        if(undefined != result.error_message.job_sales_id)          { self.show_form_group_error('job_sales_id',result.error_message.job_sales_id); }
+                        if(undefined != result.error_message.job_name)              { self.show_form_group_error('job_name',result.error_message.job_name); }
+                        if(undefined != result.error_message.job_type_id)           { self.show_form_group_error('job_type_id',result.error_message.job_type_id); }
+                        if(undefined != result.error_message.job_address_street)    { self.show_form_group_error('job_address_street',result.error_message.job_address_street); }
+                        if(undefined != result.error_message.job_address_suburb)    { self.show_form_group_error('job_address_suburb',result.error_message.job_address_suburb); }
+                        if(undefined != result.error_message.job_address_state)     { self.show_form_group_error('job_address_state',result.error_message.job_address_state); }
+                        if(undefined != result.error_message.job_address_zip)       { self.show_form_group_error('job_address_zip',result.error_message.job_address_zip); }
+
+                    }
+                    $("html, body").animate({scrollTop: 0}, 100);
+                }
+            });
+            e.preventDefault();
+        });
+
+        $('#form-update-tender').unbind().submit(function(e){
+            var tender_id = $('#tender_id').val();
+            $.ajax({
+                type    : 'put',
+                url     : '/admin/tenders/'+tender_id,
+                data    : $(this).serialize(),
+                dataType: 'json',
+                success : function(result){
+                    $('div.form-group.has-error label').hide();
+                    $('div.form-group.has-error').removeClass('has-error');
+
+                    if(result.success){
+                        $('.alert-success').show();
+                    }else{
+                        $('.alert-success').hide();
+                        if(undefined != result.error_message.contractor_id) { $('#contractor_name').parent().parent().addClass('has-error');$('#contractor_name').parent().parent().find('label').text(result.error_message.contractor_id);$('#contractor_name').parent().parent().find('label').show(); }
+                        if(undefined != result.error_message.contractor_name) { $('#contractor_name').parent().parent().addClass('has-error');$('#contractor_name').parent().parent().find('label').text(result.error_message.contractor_name);$('#contractor_name').parent().parent().find('label').show(); }
+                        if(undefined != result.error_message.contractor_business_address_street) { self.show_form_group_error('contractor_business_address_street',result.error_message.contractor_business_address_street); }
+                        if(undefined != result.error_message.contractor_business_address_suburb) { self.show_form_group_error('contractor_business_address_suburb',result.error_message.contractor_business_address_suburb); }
+                        if(undefined != result.error_message.contractor_business_address_state) { self.show_form_group_error('contractor_business_address_state',result.error_message.contractor_business_address_state); }
+                        if(undefined != result.error_message.contractor_business_address_zip) { self.show_form_group_error('contractor_business_address_zip',result.error_message.contractor_business_address_zip); }
+                        if(undefined != result.error_message.contractor_postal_address_street) { self.show_form_group_error('contractor_postal_address_street',result.error_message.contractor_postal_address_street); }
+                        if(undefined != result.error_message.contractor_postal_address_suburb) { self.show_form_group_error('contractor_postal_address_suburb',result.error_message.contractor_postal_address_suburb); }
+                        if(undefined != result.error_message.contractor_postal_address_state) { self.show_form_group_error('contractor_postal_address_state',result.error_message.contractor_postal_address_state); }
+                        if(undefined != result.error_message.contractor_postal_address_zip) { self.show_form_group_error('contractor_postal_address_zip',result.error_message.contractor_postal_address_zip); }
+                        if(undefined != result.error_message.contractor_abn) { self.show_form_group_error('contractor_abn',result.error_message.contractor_abn); }
+
+                        if($('#contractor_id').val() != '' && $('#new_contact').val() == 0 && undefined != result.error_message.contact_id) { $('#contact_id').parent().parent().addClass('has-error');$('#contact_id').parent().parent().find('label').text(result.error_message.contact_id);$('#contact_id').parent().parent().find('label').show(); }
+                        if($('#new_contact').val() == 0 && undefined != result.error_message.contact_email) { self.show_form_group_error('contact_email',result.error_message.contact_email);   }
+                        if($('#new_contact').val() == 0 && undefined != result.error_message.contact_phone) { self.show_form_group_error('contact_phone',result.error_message.contact_phone);   }
+                        if($('#new_contact').val() == 1 && undefined != result.error_message.contact_name)  { self.show_form_group_error('new_contact_name',result.error_message.contact_name);     }
+                        if($('#new_contact').val() == 1 && undefined != result.error_message.contact_email) { self.show_form_group_error('new_contact_email',result.error_message.contact_email);   }
+                        if($('#new_contact').val() == 1 && undefined != result.error_message.contact_phone) { self.show_form_group_error('new_contact_phone',result.error_message.contact_phone);   }
+                        if($('#new_contact').val() == 1 && undefined != result.error_message.contact_grade) { self.show_form_group_error('new_contact_grade',result.error_message.contact_grade);   }
+
+                        if(undefined != result.error_message.job_due_date)          { $('#job_due_date').parent().parent().addClass('has-error');$('#job_due_date').parent().parent().find('label').text(result.error_message.job_due_date);$('#job_due_date').parent().parent().find('label').show(); }
+                        if(undefined != result.error_message.job_sales_id)          { self.show_form_group_error('job_sales_id',result.error_message.job_sales_id); }
+                        if(undefined != result.error_message.job_name)              { self.show_form_group_error('job_name',result.error_message.job_name); }
+                        if(undefined != result.error_message.job_type_id)           { self.show_form_group_error('job_type_id',result.error_message.job_type_id); }
+                        if(undefined != result.error_message.job_address_street)    { self.show_form_group_error('job_address_street',result.error_message.job_address_street); }
+                        if(undefined != result.error_message.job_address_suburb)    { self.show_form_group_error('job_address_suburb',result.error_message.job_address_suburb); }
+                        if(undefined != result.error_message.job_address_state)     { self.show_form_group_error('job_address_state',result.error_message.job_address_state); }
+                        if(undefined != result.error_message.job_address_zip)       { self.show_form_group_error('job_address_zip',result.error_message.job_address_zip); }
+
+                    }
+                    $("html, body").animate({scrollTop: 0}, 100);
+                }
+            });
+            e.preventDefault();
+        });
+    }
+
     this.show_form_group_error = function(field,message){
         $('#'+field).parent().addClass('has-error');
         $('#'+field).parent().find('label').text(message);
@@ -246,8 +629,40 @@ var ltp_admin = function(){
         $('#birthdate').val('');
         $('#phone').val('');
     }
+
+    this.clear_form_create_tender = function(){
+        $('#new_contractor').val(0);
+        $('#new_contact').val(0);
+        $('#contractor_id').val('');
+        $('#contractor_name').val('');
+        $('#contractor_business_address_street').val('');
+        $('#contractor_business_address_suburb').val('');
+        $('#contractor_business_address_state').val('');
+        $('#contractor_business_address_zip').val('');
+        $('#contractor_postal_address_street').val('');
+        $('#contractor_postal_address_suburb').val('');
+        $('#contractor_postal_address_state').val('');
+        $('#contractor_postal_address_zip').val('');
+        $('#contractor_abn').val('');
+
+        $('#contact_id').html('<option value="">Select Contact Details</option>');
+        $('#contact_id').selectpicker('refresh');
+        $('#contact_id').selectpicker('val','');
+        $('#table-select-contact-details').show();
+        $('#table-contact-details').hide();
+        $('#table-new-contact').hide();
+
+        $('#job_due_date').val('');
+        $('#job_sales_id').val('');
+        $('#job_name').val('');
+        $('#job_type_id').val('');
+        $('#job_address_street').val('');
+        $('#job_address_suburb').val('');
+        $('#job_address_state').val('');
+        $('#job_address_zip').val('');
+        $('#fileupload-preview').html('');
+    }
 }
 
 window.ltp_admin = new ltp_admin();
 window.ltp_admin.init_admin();
-

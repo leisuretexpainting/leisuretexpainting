@@ -7,3 +7,8 @@
 	font-weight:bold;
 	font-size:30px;
 }
+
+
+#form-create-tender .contact-detail-field{ display: none;}
+.upload-item{margin-bottom:10px;}
+.thumbnail{margin-bottom:0px;text-align: center;}

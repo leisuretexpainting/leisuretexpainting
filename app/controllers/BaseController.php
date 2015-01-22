@@ -9,7 +9,8 @@ class BaseController extends Controller {
 	
 	public function __construct(){
 		$this->user_model 		= new User();
-		$this->role_model 		= new Role();		
+		$this->role_model 		= new Role();
+		$this->tender_model		= new Tender();
 	}
 	/**
 	 * Setup the layout used by the controller.

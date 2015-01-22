@@ -102,6 +102,42 @@
 		                    </td>
 		                </tr>
 		                <tr>
+		                    <td style="vertical-align:middle;width:180px;"><label>Street</label></td>
+		                    <td>
+		                        <div class="form-group" style="margin:0px;">
+		                            <label style="display:none;" class="control-label" for="address_street"></label>
+		                            <input id="address_street" name="address_street" class="form-control" placeholder="street"/>
+		                        </div>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td style="vertical-align:middle;width:180px;"><label>Suburb</label></td>
+		                    <td>
+		                        <div class="form-group" style="margin:0px;">
+		                            <label style="display:none;" class="control-label" for="address_suburb"></label>
+		                            <input id="address_suburb" name="address_suburb" class="form-control" placeholder="suburb"/>
+		                        </div>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td style="vertical-align:middle;width:180px;"><label>State</label></td>
+		                    <td>
+		                        <div class="form-group" style="margin:0px;">
+		                            <label style="display:none;" class="control-label" for="address_state"></label>
+		                            <input id="address_state" name="address_state" class="form-control" placeholder="state"/>
+		                        </div>
+		                    </td>
+		                </tr>
+		                <tr>
+		                    <td style="vertical-align:middle;width:180px;"><label>Zip Code</label></td>
+		                    <td>
+		                        <div class="form-group" style="margin:0px;">
+		                            <label style="display:none;" class="control-label" for="address_zip"></label>
+		                            <input id="address_zip" name="address_zip" class="form-control" placeholder="zip code"/>
+		                        </div>
+		                    </td>
+		                </tr>
+		                <tr>
 		                    <td style="vertical-align:middle;width:180px;"><label>Contact Number</label></td>
 		                    <td>
 		                        <div class="form-group" style="margin:0px;">
@@ -125,16 +161,6 @@
 <script src="/assets/js/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="/assets/js/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <script src="/assets/js/plugins/daterangepicker/daterangepicker.js"></script>
-<script src="/assets/js/plugins/JQueryFileUpload/jquery.fileupload.js"></script>
-<script src="/assets/js/plugins/JQueryFileUpload/jquery.iframe-transport.js"></script>
-<script src="/assets/js/plugins/JQueryFileUpload/jquery.fileupload-process.js"></script>
-<script src="/assets/js/plugins/JQueryFileUpload/jquery.fileupload-validate.js"></script>
-<script src="/assets/js/plugins/JQueryFileUpload/jquery.fileupload-ui.js"></script>
-<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
-<!--[if (gte IE 8)&(lt IE 10)]>
-<script src="/assets/js/plugins/JQueryFileUpload/cors/jquery.xdr-transport.js"></script>
-<![endif]-->
-<script src="/assets/js/fileupload.js"></script>
 <script type="text/javascript">
 $("#birthdate").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
 </script>

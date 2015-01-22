@@ -106,11 +106,11 @@ class AdminUserController extends BaseController {
 					,'first_name' 				=> (isset($input['first_name'])) 			? $input['first_name'] 				: null
 					,'last_name' 				=> (isset($input['last_name'])) 			? $input['last_name'] 				: null
 					,'birthdate' 				=> (isset($input['birthdate'])) 			? $input['birthdate'] 				: null
-					,'address' 					=> (isset($input['address'])) 				? $input['address'] 				: null
-					,'city' 					=> (isset($input['city'])) 					? $input['city'] 					: null
-					,'state' 					=> (isset($input['state'])) 				? $input['state'] 					: null
-					,'zip_code' 				=> (isset($input['zip_code'])) 				? $input['zip_code'] 				: null
-					,'country_code' 			=> (isset($input['country_code'])) 			? $input['country_code'] 			: null
+					,'address_street' 			=> (isset($input['address_street'])) 		? $input['address_street'] 			: null
+					,'address_suburb' 			=> (isset($input['address_suburb'])) 		? $input['address_suburb'] 			: null
+					,'address_state' 			=> (isset($input['address_state'])) 		? $input['address_state'] 			: null
+					,'address_zip' 				=> (isset($input['address_zip'])) 			? $input['address_zip'] 			: null
+					,'country' 					=> (isset($input['country'])) 				? $input['country'] 				: null
 					,'phone' 					=> (isset($input['phone'])) 				? $input['phone'] 					: null
 				);
 		$validation_rules = array(
@@ -123,11 +123,11 @@ class AdminUserController extends BaseController {
 					,'first_name' 					=> ''
 					,'last_name' 					=> ''
 					,'birthdate' 					=> ''
-					,'address' 						=> ''
-					,'city' 						=> ''
-					,'state' 						=> ''
-					,'zip_code' 					=> ''
-					,'country_code' 				=> ''
+					,'address_street' 				=> ''
+					,'address_suburb' 				=> ''
+					,'address_state' 				=> ''
+					,'address_zip' 					=> ''
+					,'country' 				=> ''
 					,'phone' 						=> ''
 				);
 		$validation_messages = array(
