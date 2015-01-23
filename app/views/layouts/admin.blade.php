@@ -177,6 +177,20 @@
                             </ul>
                         </li>
                         <li>
+                            <a class="active" href="javascript:;"><i class="icon-building"></i> Contractors</a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="/admin/contractors">Manage Contractors</a></li>
+                                <li><a href="/admin/contractors/create">Create New Contractor</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="active" href="javascript:;"><i class="icon-book"></i> Contacts</a>
+                            <ul class="nav nav-second-level">
+                                <li><a href="/admin/contacts">Manage Contacts</a></li>
+                                <li><a href="/admin/contacts/create">Create New Contact</a></li>
+                            </ul>
+                        </li>
+                        <li>
                             <a class="active" href="javascript:;"><i class="fa fa-file"></i> Tenders</a>
                             <ul class="nav nav-second-level">
                                 <li><a href="/admin/tenders">Manage Tenders</a></li>
