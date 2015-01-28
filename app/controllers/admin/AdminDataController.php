@@ -52,7 +52,7 @@ class AdminDataController extends BaseController {
 
 	public function contractors()
 	{
-		$this->returnJSON(Contractor::with('owner')->get());
+		$this->returnJSON(Contractor::all());
 	}
 
 	public function contacts(){

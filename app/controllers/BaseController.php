@@ -11,6 +11,8 @@ class BaseController extends Controller {
 		$this->user_model 		= new User();
 		$this->role_model 		= new Role();
 		$this->tender_model		= new Tender();
+		$this->contractor_model	= new Contractor();
+		$this->contact_model	= new Contact();
 	}
 	/**
 	 * Setup the layout used by the controller.

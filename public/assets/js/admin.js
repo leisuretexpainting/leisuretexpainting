@@ -54,7 +54,26 @@ var ltp_admin = function(){
             });
             e.preventDefault();
         });
+    }
 
+    this.init_user_scripts = function(){
+
+        $('#admin-users-list').dataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 0,6 ] }
+            ]
+        });
+
+        $('#admin-userroles-list').dataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 2,4 ] }
+            ]
+        });
+
+        self.init_user_actions();
+    }
+
+    this.init_user_actions = function(){
         /*Create New User Role*/
         $('#form-create-userrole').submit(function(e){
             $.ajax({
@@ -160,28 +179,19 @@ var ltp_admin = function(){
             return false;
         });
 
-
-
-    }
-
-    this.init_dataTables = function(){
-        
-        $('#admin-users-list').dataTable({
-            "aoColumnDefs": [
-                { 'bSortable': false, 'aTargets': [ 0,6 ] }
-            ]
-        });
-
-        $('#admin-userroles-list').dataTable({
-            "aoColumnDefs": [
-                { 'bSortable': false, 'aTargets': [ 2,4 ] }
-            ]
-        });
-
-        $('#admin-tenders-list').dataTable({
-            "aoColumnDefs": [
-                { 'bSortable': false, 'aTargets': [ 0,6 ] }
-            ]
+        $('.btn-remove-user').unbind().click(function(){
+            var current = $(this);
+            var user_id = $(this).attr('user-id');            
+            $.ajax({
+                type    : 'delete',
+                url     : '/admin/users/'+user_id,
+                dataType: 'json',
+                success : function(result){
+                    if(result.success)
+                        current.parent().parent().parent().remove();
+                }
+            });
+            e.preventDefault();
         });
     }
     
@@ -235,12 +245,115 @@ var ltp_admin = function(){
         });
     }
 
+    this.init_contractor_scripts = function(){
+        $('#admin-contractors-list').dataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 0,5 ] }
+            ]
+        });
+
+        self.init_contractor_actions();
+    }
+
+    this.init_contractor_actions = function(){
+        $('#form-create-contractor').unbind().submit(function(e){
+
+            $.ajax({
+                type    : 'post',
+                url     : '/admin/contractors',
+                data    : $(this).serialize(),
+                dataType: 'json',
+                success : function(result){
+                    $('div.form-group.has-error label').hide();
+                    $('div.form-group.has-error').removeClass('has-error');
+
+                    if(result.success){
+                        self.clear_form_create_contractor();
+                        $('.alert-success').show();
+                    }else{
+                        $('.alert-success').hide();
+                        if(undefined != result.error_message.name) { self.show_form_group_error('name',result.error_message.name); }
+                        if(undefined != result.error_message.email) { self.show_form_group_error('email',result.error_message.email); }
+                        if(undefined != result.error_message.phone) { self.show_form_group_error('phone',result.error_message.phone); }
+                        if(undefined != result.error_message.business_address_street) { self.show_form_group_error('business_address_street',result.error_message.business_address_street); }
+                        if(undefined != result.error_message.business_address_suburb) { self.show_form_group_error('business_address_suburb',result.error_message.business_address_suburb); }
+                        if(undefined != result.error_message.business_address_state) { self.show_form_group_error('business_address_state',result.error_message.business_address_state); }
+                        if(undefined != result.error_message.business_address_zip) { self.show_form_group_error('business_address_zip',result.error_message.business_address_zip); }
+                        if(undefined != result.error_message.postal_address_street) { self.show_form_group_error('postal_address_street',result.error_message.postal_address_street); }
+                        if(undefined != result.error_message.postal_address_suburb) { self.show_form_group_error('postal_address_suburb',result.error_message.postal_address_suburb); }
+                        if(undefined != result.error_message.postal_address_state) { self.show_form_group_error('postal_address_state',result.error_message.postal_address_state); }
+                        if(undefined != result.error_message.postal_address_zip) { self.show_form_group_error('postal_address_zip',result.error_message.postal_address_zip); }
+                        if(undefined != result.error_message.abn) { self.show_form_group_error('abn',result.error_message.abn); }
+
+                    }
+                    $("html, body").animate({scrollTop: 0}, 100);
+                }
+            });
+            e.preventDefault();
+        });
+
+        $('#form-update-contractor').unbind().submit(function(e){
+            var contractor_id = $('#contractor_id').val();
+            $.ajax({
+                type    : 'put',
+                url     : '/admin/contractors/'+contractor_id,
+                data    : $(this).serialize(),
+                dataType: 'json',
+                success : function(result){
+                    $('div.form-group.has-error label').hide();
+                    $('div.form-group.has-error').removeClass('has-error');
+
+                    if(result.success){                        
+                        $('.alert-success').show();
+                    }else{
+                        $('.alert-success').hide();
+                        if(undefined != result.error_message.name) { self.show_form_group_error('name',result.error_message.name); }
+                        if(undefined != result.error_message.email) { self.show_form_group_error('email',result.error_message.email); }
+                        if(undefined != result.error_message.phone) { self.show_form_group_error('phone',result.error_message.phone); }
+                        if(undefined != result.error_message.business_address_street) { self.show_form_group_error('business_address_street',result.error_message.business_address_street); }
+                        if(undefined != result.error_message.business_address_suburb) { self.show_form_group_error('business_address_suburb',result.error_message.business_address_suburb); }
+                        if(undefined != result.error_message.business_address_state) { self.show_form_group_error('business_address_state',result.error_message.business_address_state); }
+                        if(undefined != result.error_message.business_address_zip) { self.show_form_group_error('business_address_zip',result.error_message.business_address_zip); }
+                        if(undefined != result.error_message.postal_address_street) { self.show_form_group_error('postal_address_street',result.error_message.postal_address_street); }
+                        if(undefined != result.error_message.postal_address_suburb) { self.show_form_group_error('postal_address_suburb',result.error_message.postal_address_suburb); }
+                        if(undefined != result.error_message.postal_address_state) { self.show_form_group_error('postal_address_state',result.error_message.postal_address_state); }
+                        if(undefined != result.error_message.postal_address_zip) { self.show_form_group_error('postal_address_zip',result.error_message.postal_address_zip); }
+                        if(undefined != result.error_message.abn) { self.show_form_group_error('abn',result.error_message.abn); }
+
+                    }
+                    $("html, body").animate({scrollTop: 0}, 100);
+                }
+            });
+            e.preventDefault();
+        });
+
+        $('.btn-remove-contractor').unbind().click(function(){
+            var current = $(this);
+            var contractor_id = $(this).attr('contractor-id');            
+            $.ajax({
+                type    : 'delete',
+                url     : '/admin/contractors/'+contractor_id,
+                dataType: 'json',
+                success : function(result){
+                    if(result.success)
+                        current.parent().parent().parent().remove();
+                }
+            });
+            e.preventDefault();
+        });
+    }
+
     this.init_tender_scripts = function(){
         self.init_admin();        
         self.init_typeahead_contractors();
         self.init_tender_actions();
 
         $("#job_due_date").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        $('#admin-tenders-list').dataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 0,6 ] }
+            ]
+        });
     }
 
     this.init_typeahead_contractors = function(){
@@ -628,6 +741,21 @@ var ltp_admin = function(){
         $('#last_name').val('');
         $('#birthdate').val('');
         $('#phone').val('');
+    }
+
+    this.clear_form_create_contractor = function(){
+        $('#name').val('');
+        $('#email').val('');
+        $('#phone').val('');
+        $('#business_address_street').val('');
+        $('#business_address_suburb').val('');
+        $('#business_address_state').val('');
+        $('#business_address_zip').val('');
+        $('#postal_address_street').val('');
+        $('#postal_address_suburb').val('');
+        $('#postal_address_state').val('');
+        $('#postal_address_zip').val('');
+        $('#abn').val('');
     }
 
     this.clear_form_create_tender = function(){
