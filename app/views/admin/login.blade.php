@@ -13,8 +13,6 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/admin.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/plugins/morris.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/plugins/dataTables.bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/plugins/JQueryFileUpload/jquery.fileupload.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/css/plugins/JQueryFileUpload/jquery.fileupload-ui.css"/>
     <link rel="stylesheet" type="text/css" href="/packages/font-awesome/css/font-awesome.min.css">
     @section('header-css')
     @show
@@ -37,7 +35,7 @@
                         <img src="/assets/img/leisuretexpainting-logo.png" alt="Leisuretexpainting" style="margin-left:-15px;"/>
                     </div>
                     <div class="panel-body">
-                        <form id="form-admin-login" method="post" action="/login" role="form">
+                        <form id="form-admin-login" method="post" action="/admin/login" role="form">
                             <div id="admin-login-alert" class="alert" style="display:none;"><p></p></div>
                             <input type="hidden" name="role_id" value="2"/>
                             <fieldset>
@@ -65,9 +63,12 @@
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/jquery.ui.widget.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
-    @section('footer-js')
-    @show
+    <script src="/assets/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/assets/js/plugins/dataTables/dataTables.bootstrap.js"></script>
     <script src="/assets/js/admin.js"></script>
+    <script type="text/javascript">
+    window.ltp_admin.init_user_scripts();
+    </script>
 </body>
 
 </html>

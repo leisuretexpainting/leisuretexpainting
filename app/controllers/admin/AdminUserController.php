@@ -127,11 +127,11 @@ class AdminUserController extends BaseController {
 					,'address_suburb' 				=> ''
 					,'address_state' 				=> ''
 					,'address_zip' 					=> ''
-					,'country' 				=> ''
+					,'country' 						=> ''
 					,'phone' 						=> ''
 				);
 		$validation_messages = array(
-					 'id.required' 				=> 'User id is required'
+					 'id.required' 						=> 'User id is required'
 					,'role_id.required' 				=> 'User role is required'
 					,'username.required' 				=> 'Username is required'
 					,'username.unique' 					=> 'Username has been taken'
@@ -165,6 +165,6 @@ class AdminUserController extends BaseController {
 
 	public function destroy($id)
 	{
-		
+		return Response::json(array('success'=>User::where('id',$id)->delete()));
 	}
 }

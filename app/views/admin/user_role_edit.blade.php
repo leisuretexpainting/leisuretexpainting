@@ -14,7 +14,7 @@
     <div class="col-lg-8">
     	<div class="panel panel-primary">
         	<div class="panel-heading">
-        		<span class="panel-title">Update User Role: {{$userRole->title}}</span>
+        		<span class="panel-title">Update User Role</span>
         	</div>
             <div class="panel-body">
             <form id="form-update-userrole">
@@ -24,13 +24,6 @@
                 </div>
             <div class="table-responsive">
                 <table class="table">
-                	<tr>
-                		<td style="width:180px;"><label>Id</label></td>
-                		<td>
-                			{{$userRole->id}}
-                			<input type="hidden" id="role_id" name="role_id" value="{{$userRole->id}}"/>
-                		</td>
-                	</tr>
 	                <tr>
 	                    <td><label>Title</label></td>
 	                    <td>

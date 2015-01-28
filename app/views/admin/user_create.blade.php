@@ -157,11 +157,7 @@
 @stop
 
 @section('footer-js')
-<script src="/assets/js/plugins/input-mask/jquery.inputmask.js"></script>
-<script src="/assets/js/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="/assets/js/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<script src="/assets/js/plugins/daterangepicker/daterangepicker.js"></script>
 <script type="text/javascript">
-$("#birthdate").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+window.ltp_admin.init_user_scripts();
 </script>
 @stop

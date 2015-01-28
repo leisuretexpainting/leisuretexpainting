@@ -27,7 +27,7 @@
                                 <th style="width:auto;">First Name</th>
                                 <th style="width:auto;">Last Name</th>
                                 <th style="width:auto;">Email Address</th>
-                                <th style="width:25%;">Actions</th>
+                                <th style="width:22%;">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,7 +43,7 @@
                                     <div class="btn-group" user="group">
                                         <button type="button" class="btn btn-sm btn-default" onClick="window.location='/admin/users/{{$user->id}}'" title="Update user details"><i class="fa fa-search-plus"></i> View Full Details</button>
                                         <button type="button" class="btn btn-sm btn-default" onClick="window.location='/admin/users/{{$user->id}}/edit'" title="Update user details"><i class="fa fa-edit"></i> Update</button>
-                                        <button type="button" class="btn btn-sm btn-default btn-user-remove" title="Remove this user" user-id="{{$user->id}}"><i class="fa fa-trash-o"></i> Remove</button>
+                                        <button type="button" class="btn btn-sm btn-default btn-remove-user" user-id="{{$user->id}}" title="Remove this user"><i class="fa fa-trash-o"></i> Remove</button>
                                     </div>
                                 </td>
                             </tr>
@@ -58,10 +58,7 @@
 @stop
 
 @section('footer-js')
-<script src="/assets/js/plugins/dataTables/jquery.dataTables.js"></script>
-<script src="/assets/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 <script type="text/javascript">
-ltp_admin.init_dataTables();
+window.ltp_admin.init_user_scripts();
 </script>
-
 @stop
