@@ -343,6 +343,81 @@ var ltp_admin = function(){
         });
     }
 
+    this.init_contact_scripts = function(){
+
+        $('#admin-contacts-list').dataTable({
+            "aoColumnDefs": [
+                { 'bSortable': false, 'aTargets': [ 0,5 ] }
+            ]
+        });
+
+        self.init_contact_actions();
+    }
+
+    this.init_contact_actions = function(){
+
+        $('#form-create-contact').unbind().submit(function(e){
+            $.ajax({
+                type    : 'post',
+                url     : '/admin/contacts',
+                data    : $(this).serialize(),
+                dataType: 'json',
+                success : function(result){
+                    $('div.form-group.has-error label').hide();
+                    $('div.form-group.has-error').removeClass('has-error');
+
+                    if(result.success){
+                        self.clear_form_create_contact();
+                        $('.alert-success').show();
+                    }else{
+                        $('.alert-success').hide();
+                        if(undefined != result.error_message.grade) { self.show_form_group_error('grade',result.error_message.grade); }
+                        if(undefined != result.error_message.name) { self.show_form_group_error('name',result.error_message.name); }
+                        if(undefined != result.error_message.email) { self.show_form_group_error('email',result.error_message.email); }
+                        if(undefined != result.error_message.phone) { self.show_form_group_error('phone',result.error_message.phone); }
+                        if(undefined != result.error_message.address_street) { self.show_form_group_error('address_street',result.error_message.address_street); }
+                        if(undefined != result.error_message.address_suburb) { self.show_form_group_error('address_suburb',result.error_message.address_suburb); }
+                        if(undefined != result.error_message.address_state) { self.show_form_group_error('address_state',result.error_message.address_state); }
+                        if(undefined != result.error_message.address_zip) { self.show_form_group_error('address_zip',result.error_message.address_zip); }
+                    }
+                    $("html, body").animate({scrollTop: 0}, 100);
+                }
+            });
+            e.preventDefault();
+        });
+
+        $('#form-update-contact').unbind().submit(function(e){
+            var contact_id = $('#contact_id').val();
+            $.ajax({
+                type    : 'put',
+                url     : '/admin/contacts/'+contact_id,
+                data    : $(this).serialize(),
+                dataType: 'json',
+                success : function(result){
+                    $('div.form-group.has-error label').hide();
+                    $('div.form-group.has-error').removeClass('has-error');
+
+                    if(result.success){                        
+                        $('.alert-success').show();
+                    }else{
+                        $('.alert-success').hide();
+                        if(undefined != result.error_message.grade) { self.show_form_group_error('grade',result.error_message.grade); }
+                        if(undefined != result.error_message.name) { self.show_form_group_error('name',result.error_message.name); }
+                        if(undefined != result.error_message.email) { self.show_form_group_error('email',result.error_message.email); }
+                        if(undefined != result.error_message.phone) { self.show_form_group_error('phone',result.error_message.phone); }
+                        if(undefined != result.error_message.address_street) { self.show_form_group_error('address_street',result.error_message.address_street); }
+                        if(undefined != result.error_message.address_suburb) { self.show_form_group_error('address_suburb',result.error_message.address_suburb); }
+                        if(undefined != result.error_message.address_state) { self.show_form_group_error('address_state',result.error_message.address_state); }
+                        if(undefined != result.error_message.address_zip) { self.show_form_group_error('address_zip',result.error_message.address_zip); }
+                    }
+                    $("html, body").animate({scrollTop: 0}, 100);
+                }
+            });
+            e.preventDefault();
+        });
+
+    }
+
     this.init_tender_scripts = function(){
         self.init_admin();        
         self.init_typeahead_contractors();
@@ -756,6 +831,18 @@ var ltp_admin = function(){
         $('#postal_address_state').val('');
         $('#postal_address_zip').val('');
         $('#abn').val('');
+    }
+
+    this.clear_form_create_contact = function(){
+        $('#contractor_id').val('');
+        $('#grade').val('');
+        $('#name').val('');
+        $('#email').val('');
+        $('#phone').val('');
+        $('#address_street').val('');
+        $('#address_suburb').val('');
+        $('#address_state').val('');
+        $('#address_zip').val('');
     }
 
     this.clear_form_create_tender = function(){

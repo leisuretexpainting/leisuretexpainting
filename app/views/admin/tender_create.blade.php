@@ -78,23 +78,23 @@
 		                    <td style="width:vertical-align:middle;"><label>Job Address</label></td>
 		                    <td>
 		                    	<div class="form-inline">
-		                        <div class="form-group" style="margin:0px;width:30%;">
-		                            <label style="display:none;" class="control-label" for="job_address_street"></label>
-		                            <input id="job_address_street" name="job_address_street" class="form-control" placeholder="street" style="width:100%;"/>
-		                        </div>
-		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="job_address_suburb"></label>
-		                            <input id="job_address_suburb" name="job_address_suburb" class="form-control" placeholder="suburb" style="width:100%;"/>
-		                        </div>
-		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="job_address_state"></label>
-		                            <input id="job_address_state" name="job_address_state" class="form-control" placeholder="state" style="width:100%;"/>
-		                        </div>
-		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="job_address_zip"></label>
-		                            <input id="job_address_zip" name="job_address_zip" class="form-control" placeholder="zip code" style="width:100%;"/>
-		                        </div>
-		                    </div>
+			                        <div class="form-group" style="margin:0px;width:30%;">
+			                            <label style="display:none;" class="control-label" for="job_address_street"></label>
+			                            <input id="job_address_street" name="job_address_street" class="form-control" placeholder="street" style="width:100%;"/>
+			                        </div>
+			                        <div class="form-group" style="margin:0px;width:20%;">
+			                            <label style="display:none;" class="control-label" for="job_address_suburb"></label>
+			                            <input id="job_address_suburb" name="job_address_suburb" class="form-control" placeholder="suburb" style="width:100%;"/>
+			                        </div>
+			                        <div class="form-group" style="margin:0px;width:20%;">
+			                            <label style="display:none;" class="control-label" for="job_address_state"></label>
+			                            <input id="job_address_state" name="job_address_state" class="form-control" placeholder="state" style="width:100%;"/>
+			                        </div>
+			                        <div class="form-group" style="margin:0px;width:20%;">
+			                            <label style="display:none;" class="control-label" for="job_address_zip"></label>
+			                            <input id="job_address_zip" name="job_address_zip" class="form-control" placeholder="zip code" style="width:100%;"/>
+			                        </div>
+			                    </div>
 		                    </td>
 		                </tr>
 	                </table>
@@ -132,46 +132,46 @@
 		                    <td style="width:vertical-align:middle;"><label>Business Address</label></td>
 		                    <td>
 		                    	<div class="form-inline">
-		                        <div class="form-group" style="margin:0px;width:30%;">
-		                            <label style="display:none;" class="control-label" for="contractor_business_address_street"></label>
-		                            <input id="contractor_business_address_street" name="contractor_business_address_street" class="form-control" placeholder="street" style="width:100%;" readonly/>
-		                        </div>
-		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="contractor_business_address_suburb"></label>
-		                            <input id="contractor_business_address_suburb" name="contractor_business_address_suburb" class="form-control" placeholder="suburb" style="width:100%;" readonly/>
-		                        </div>
-		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="contractor_business_address_state"></label>
-		                            <input id="contractor_business_address_state" name="contractor_business_address_state" class="form-control" placeholder="state" style="width:100%;" readonly/>
-		                        </div>
-		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="contractor_business_address_zip"></label>
-		                            <input id="contractor_business_address_zip" name="contractor_business_address_zip" class="form-control" placeholder="zip code" style="width:100%;" readonly/>
-		                        </div>
-		                    </div>
+			                        <div class="form-group" style="margin:0px;width:30%;">
+			                            <label style="display:none;" class="control-label" for="contractor_business_address_street"></label>
+			                            <input id="contractor_business_address_street" name="contractor_business_address_street" class="form-control" placeholder="street" style="width:100%;" readonly/>
+			                        </div>
+			                        <div class="form-group" style="margin:0px;width:20%;">
+			                            <label style="display:none;" class="control-label" for="contractor_business_address_suburb"></label>
+			                            <input id="contractor_business_address_suburb" name="contractor_business_address_suburb" class="form-control" placeholder="suburb" style="width:100%;" readonly/>
+			                        </div>
+			                        <div class="form-group" style="margin:0px;width:20%;">
+			                            <label style="display:none;" class="control-label" for="contractor_business_address_state"></label>
+			                            <input id="contractor_business_address_state" name="contractor_business_address_state" class="form-control" placeholder="state" style="width:100%;" readonly/>
+			                        </div>
+			                        <div class="form-group" style="margin:0px;width:20%;">
+			                            <label style="display:none;" class="control-label" for="contractor_business_address_zip"></label>
+			                            <input id="contractor_business_address_zip" name="contractor_business_address_zip" class="form-control" placeholder="zip code" style="width:100%;" readonly/>
+			                        </div>
+			                    </div>
 		                    </td>
 		                </tr>
 		                <tr>
 		                    <td style="width:vertical-align:middle;"><label>Postal Address</label></td>
 		                    <td>
 		                    	<div class="form-inline">
-		                        <div class="form-group" style="margin:0px;width:30%;">
-		                            <label style="display:none;" class="control-label" for="contractor_postal_address_street"></label>
-		                            <input id="contractor_postal_address_street" name="contractor_postal_address_street" class="form-control" placeholder="street" style="width:100%;" readonly/>
-		                        </div>
-		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="contractor_postal_address_suburb"></label>
-		                            <input id="contractor_postal_address_suburb" name="contractor_postal_address_suburb" class="form-control" placeholder="suburb" style="width:100%;" readonly/>
-		                        </div>
-		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="contractor_postal_address_state"></label>
-		                            <input id="contractor_postal_address_state" name="contractor_postal_address_state" class="form-control" placeholder="state" style="width:100%;" readonly/>
-		                        </div>
-		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="contractor_postal_address_zip"></label>
-		                            <input id="contractor_postal_address_zip" name="contractor_postal_address_zip" class="form-control" placeholder="zip code" style="width:100%;" readonly/>
-		                        </div>
-		                    </div>
+			                        <div class="form-group" style="margin:0px;width:30%;">
+			                            <label style="display:none;" class="control-label" for="contractor_postal_address_street"></label>
+			                            <input id="contractor_postal_address_street" name="contractor_postal_address_street" class="form-control" placeholder="street" style="width:100%;" readonly/>
+			                        </div>
+			                        <div class="form-group" style="margin:0px;width:20%;">
+			                            <label style="display:none;" class="control-label" for="contractor_postal_address_suburb"></label>
+			                            <input id="contractor_postal_address_suburb" name="contractor_postal_address_suburb" class="form-control" placeholder="suburb" style="width:100%;" readonly/>
+			                        </div>
+			                        <div class="form-group" style="margin:0px;width:20%;">
+			                            <label style="display:none;" class="control-label" for="contractor_postal_address_state"></label>
+			                            <input id="contractor_postal_address_state" name="contractor_postal_address_state" class="form-control" placeholder="state" style="width:100%;" readonly/>
+			                        </div>
+			                        <div class="form-group" style="margin:0px;width:20%;">
+			                            <label style="display:none;" class="control-label" for="contractor_postal_address_zip"></label>
+			                            <input id="contractor_postal_address_zip" name="contractor_postal_address_zip" class="form-control" placeholder="zip code" style="width:100%;" readonly/>
+			                        </div>
+			                    </div>
 		                    </td>
 		                </tr>
 		                <tr>
@@ -312,7 +312,7 @@
 	</div>
 
 	<div class="col-lg-10">
-		<p style="text-align:center;"><button type="submit" class="btn btn-primary btn-lg">Submit Tender Details</button></p>
+		<p style="text-align:center;"><button type="submit" class="btn btn-primary">Submit Tender Details</button></p>
 	</div>
 	</form>
 </div>

@@ -184,9 +184,8 @@
         </div>
         @endif
         <div class="row col-lg-12" style="text-align:center;">
-            <a href="/admin/tenders/{{$tender->id}}/edit">
-                <button type="submit" class="btn btn-primary btn-lg"><i class="icon-edit"></i>Update Tender Details</button>
-            </a>
+            <a href="/admin/tenders"><button type="button" class="btn btn-default"><i class="icon-rotate-left"></i>&nbsp;Back</button></a>
+            <a href="/admin/tenders/{{$tender->id}}/edit"><button type="submit" class="btn btn-primary"><i class="icon-edit"></i>Update</button></a>
         </div>
     </div>
 </div>

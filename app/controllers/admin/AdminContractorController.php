@@ -129,7 +129,7 @@ class AdminContractorController extends \BaseController {
 		$contractor = Contractor::find($id);
 		$input 		= Input::get();
 		$data = array(
-					'id' 						=> (isset($input['contractor_id'])) 			? $input['contractor_id'] 				: ''					 
+					'id' 						=> $id
 					,'name' 					=> (isset($input['name'])) 						? $input['name'] 						: ''
 					,'email' 					=> (isset($input['email'])) 					? $input['email'] 						: ''
 					,'phone' 					=> (isset($input['phone'])) 					? $input['phone'] 						: ''

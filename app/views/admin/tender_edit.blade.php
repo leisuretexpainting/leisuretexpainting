@@ -315,7 +315,7 @@
 						<span class="btn btn-success btn-sm fileinput-button"><i class="glyphicon glyphicon-upload"></i><span>&nbsp;Upload Related Documents</span>
 						<input id="fileupload-tender-documents" type="file" multiple style="cursor:pointer;">
 					</span>
-					<button id="fileupload-delete-all" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> Remove All</button>
+					<button id="fileupload-delete-all" type="button" class="btn btn-sm btn-danger" style="{{($tender->documents()->count() > 0) ? '' : 'display:none;'}}"><i class="fa fa-trash-o"></i> Remove All</button>
 					</div>
 					<div class="col-lg-8">
 						<div id="fileupload-progress" class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="display:none;">
@@ -358,8 +358,8 @@
 
 	<div class="col-lg-10">
 		<p style="text-align:center;">
-			<button type="submit" class="btn btn-primary btn-lg"><i class="icon-edit"></i>&nbsp;Submit</button>
-			<a href="/admin/tenders/{{$tender->id}}"><button type="button" class="btn btn-default btn-lg"><i class="icon-rotate-left"></i>&nbsp;Cancel</button></a>
+			<a href="/admin/tenders/{{$tender->id}}"><button type="button" class="btn btn-default"><i class="icon-rotate-left"></i>&nbsp;Back</button></a>
+			<button type="submit" class="btn btn-primary"><i class="icon-edit"></i>&nbsp;Submit</button>
 		</p>
 	</div>
 	</form>

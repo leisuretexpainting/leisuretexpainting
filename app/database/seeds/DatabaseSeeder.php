@@ -157,7 +157,7 @@ class TenderStatusTableSeeder extends seeder {
 		DB::table('tender_status')->insert(array(
 			 array('code' => '101','text' => 'Awaiting take off material')
 			,array('code' => '102','text' => 'Awaiting quotation')
-			,array('code' => '103','text' => 'Quoatation sent')
+			,array('code' => '103','text' => 'Quotation sent')
 		));
 	}
 }

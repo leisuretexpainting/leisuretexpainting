@@ -14,13 +14,17 @@ class CreateContactsTable extends Migration {
 	{
 		Schema::create('contacts',function($table){
 			$table->increments('id');
-			$table->integer('contractor_id')->length(10)->unsigned();
+			$table->integer('contractor_id')->length(10)->unsigned()->nullable();
 			$table->string('name');
-			$table->string('email')->unique();
+			$table->string('email')->nullable();
 			$table->string('phone')->nullable();
 			$table->enum('grade',array('A','B','C'));
+			$table->string('address_street')->nullable();
+			$table->string('address_suburb')->nullable();
+			$table->string('address_state')->nullable();
+			$table->string('address_zip')->nullable();
 			$table->timestamps();
-			$table->foreign('contractor_id')->references('id')->on('contractors');
+			$table->foreign('contractor_id')->references('id')->on('contractors')->onDelete('set null');
 		});
 	}
 
