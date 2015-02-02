@@ -14,5 +14,5 @@ return array(
 	*/
 
 	'debug' => true,
-	'url' => 'http://leisuretexpainting.local',
+	'url' => 'http://staging.leisuretexpainting.com.au',
 );
