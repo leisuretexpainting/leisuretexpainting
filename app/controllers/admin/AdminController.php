@@ -41,7 +41,7 @@ class AdminController extends BaseController {
 	 * @return Response
 	 */
 	public function logout(){
-		if(Auth::user() && Auth::user()->history()->create(['event'=>'logged out'])){
+		if(Auth::user()->history()->create(['event'=>'logged out'])){
 			Auth::logout();
 		}
 		return Redirect::to('admin/login');

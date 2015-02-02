@@ -20,10 +20,9 @@ Route::get('/', function()
 Route::post('admin/user/create','UserController@create');
 Route::get('admin/login','AdminController@showAdminLogin');
 Route::post('admin/login','AdminController@login');
-Route::get('admin/logout','AdminController@logout');
 Route::group(array('before' => 'admin_auth'), function()
 {
-	/*Json Urls*/
+	Route::get('admin/logout','AdminController@logout');
 	Route::get('admin/data/{name}.json',"AdminDataController@index");
 
     Route::get('/admin','AdminController@dashboard');
