@@ -22,14 +22,15 @@ class AdminController extends BaseController {
             $remember_me 	= (isset($login_data['remember_me'])) ? true : false;
 
             if (Auth::attempt(array('username' => $username, 'password' => $password, 'role_id' => 1),$remember_me)){
-            	echo json_encode(array('success' => true));
+            	Auth::user()->history()->create(['event'=>'logged in']);
+            	return Response::json(['success' => true]);
             }else{
                 $error_message = 'Incorrect username or password';
-                echo json_encode(array('success'=>false,'error_message'=>$error_message));
+                return Response::json(['success'=>false,'error_message'=>$error_message]);
             }
         }else{
             $error_message = 'Username and password are required';
-            echo json_encode(array('success'=>false,'error_message'=>$error_message));
+            return Response::json(['success'=>false,'error_message'=>$error_message]);
         }
         
 	}
@@ -40,6 +41,7 @@ class AdminController extends BaseController {
 	 * @return Response
 	 */
 	public function logout(){
+		Auth::user()->history()->create(['event'=>'logged out']);
         Auth::logout();
         return Redirect::to('admin/login');
     }

@@ -92,5 +92,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	/*Relationships*/
 	public function role(){
 		return $this->hasOne('Role','id','role_id');
-	}	
+	}
+	public function history(){
+		return $this->morphMany('History','historable');
+	}
 }
