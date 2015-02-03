@@ -16,10 +16,10 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-/*Admin Page Routes*/
-Route::post('admin/user/create','UserController@create');
 Route::get('admin/login','AdminController@showAdminLogin');
 Route::post('admin/login','AdminController@login');
+
+/*Admin Page Routes*/
 Route::group(array('before' => 'auth.admin'), function()
 {
     Route::get('admin/logout','AdminController@logout');
@@ -32,6 +32,7 @@ Route::group(array('before' => 'auth.admin'), function()
     Route::resource('admin/contacts', 'AdminContactController');
     Route::resource('/admin/tenders','AdminTenderController');
 
+    Route::post('admin/user/create','UserController@create');
     Route::get('/admin/download/{directory}/{name?}','DownloadController@download');
 });
 
@@ -39,8 +40,3 @@ Route::group(array('before' => 'auth.admin'), function()
 Route::get('upload/{resource}','UploadController@upload');
 Route::post('upload/{resource}','UploadController@upload');
 Route::delete('upload/{resource}','UploadController@delete');
-
-Route::get('test',function(){
-    if(Auth::user())
-    printpre(Auth::user()->toArray());
-});

@@ -35,11 +35,13 @@ App::after(function($request, $response)
 
 Route::filter('auth.admin', function()
 {
-	if (!Auth::check() || Auth::user()->role->id != 1)
-	{
-		Auth::logout();
-		return Redirect::to('admin/login');
-	}
+	 if (Auth::guest()) {
+        return Redirect::guest('/admin/login');
+    } else {
+        if (Auth::user()->role->id != 1) {
+            App::abort(401, 'Unauthorized access to a restricted area.');
+        }
+    }
 });
 
 Route::filter('auth', function()
