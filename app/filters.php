@@ -33,18 +33,12 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('admin_auth', function()
+Route::filter('auth.admin', function()
 {
-	if (Auth::guest())
+	if (!Auth::check() || Auth::user()->role->id != 1)
 	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		else
-		{
-			return Redirect::guest('admin/login');
-		}
+		Auth::logout();
+		return Redirect::to('admin/login');
 	}
 });
 

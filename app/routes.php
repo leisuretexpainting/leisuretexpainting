@@ -20,10 +20,10 @@ Route::get('/', function()
 Route::post('admin/user/create','UserController@create');
 Route::get('admin/login','AdminController@showAdminLogin');
 Route::post('admin/login','AdminController@login');
-Route::group(array('before' => 'admin_auth'), function()
+Route::group(array('before' => 'auth.admin'), function()
 {
-	Route::get('admin/logout','AdminController@logout');
-	Route::get('admin/data/{name}.json',"AdminDataController@index");
+    Route::get('admin/logout','AdminController@logout');
+    Route::get('admin/data/{name}.json',"AdminDataController@index");
 
     Route::get('/admin','AdminController@dashboard');
     Route::resource('admin/users', 'AdminUserController');
@@ -39,3 +39,8 @@ Route::group(array('before' => 'admin_auth'), function()
 Route::get('upload/{resource}','UploadController@upload');
 Route::post('upload/{resource}','UploadController@upload');
 Route::delete('upload/{resource}','UploadController@delete');
+
+Route::get('test',function(){
+    if(Auth::user())
+    printpre(Auth::user()->toArray());
+});
