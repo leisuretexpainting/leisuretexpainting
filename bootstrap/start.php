@@ -27,7 +27,7 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 
 	'local' => array('homestead','EVSI-MKT-LTX01'),
-	'testing' => array('ltpdev'),
+	'staging' => array('ltpdev'),
 
 ));
 

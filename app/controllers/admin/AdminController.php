@@ -7,12 +7,8 @@ class AdminController extends BaseController {
 	}
 
 	public function showAdminLogin(){
-		if(Auth::check()){
-			return Redirect::to('admin');
-		}
-		else{
-			return View::make('admin/login');
-		}
+		if(Auth::check()) return Redirect::to('admin');
+		return View::make('admin/login');
 	}
 
 	public function login(){
