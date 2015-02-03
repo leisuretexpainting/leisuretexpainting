@@ -34,13 +34,12 @@ App::after(function($request, $response)
 */
 
 Route::filter('auth.admin', function()
-{
-	 if (Auth::guest()) {
+{	
+	if (!Auth::check()) {
         return Redirect::guest('/admin/login');
-    } else {
-        if (Auth::user()->role->id != 1) {
-            App::abort(401, 'Unauthorized access to a restricted area.');
-        }
+    }
+    else {
+        if (Auth::user()->role->id != 1) return Response::make('Unauthorized', 401);
     }
 });
 

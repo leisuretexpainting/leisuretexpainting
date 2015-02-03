@@ -14,5 +14,5 @@ return array(
 	*/
 
 	'debug' => true,
-	'url' => 'http://staging.leisuretexpainting.com.au',
+	'url' => 'http://104.236.230.78:8080',
 );
