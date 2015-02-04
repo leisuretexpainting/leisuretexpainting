@@ -4,12 +4,12 @@ class AdminUserRolesController extends BaseController {
 	public function index()
 	{
 		$this->data['userRoles'] = $this->role_model->getAll();
-		return View::make('admin/user_role_list',$this->data);
+		return View::make('admin.role.index',$this->data);
 	}
 
 	public function create()
 	{
-		return View::make('admin/user_role_create');
+		return View::make('admin.role.create');
 	}
 
 	public function store()
@@ -56,7 +56,7 @@ class AdminUserRolesController extends BaseController {
 	public function edit($id)
 	{
 		$this->data['userRole'] = $this->role_model->getDetails($id);
-		return View::make('admin/user_role_edit',$this->data);
+		return View::make('admin.role.edit',$this->data);
 	}
 
 	public function update($id)

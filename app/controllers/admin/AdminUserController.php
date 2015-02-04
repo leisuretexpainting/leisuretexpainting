@@ -4,13 +4,13 @@ class AdminUserController extends BaseController {
 	public function index()
 	{
 		$this->data['users'] = $this->user_model->getAll();
-		return View::make('admin/user_list',$this->data);
+		return View::make('admin.user.index',$this->data);
 	}
 
 	public function create()
 	{
 		$this->data['userRoles'] = $this->role_model->getAll();
-		return View::make('admin/user_create',$this->data);
+		return View::make('admin.user.create',$this->data);
 	}
 
 	public function store()
@@ -82,14 +82,14 @@ class AdminUserController extends BaseController {
 	public function show($id)
 	{
 		$this->data['user'] = $this->user_model->getDetails($id);
-		return View::make('admin/user_details',$this->data);
+		return View::make('admin.user.show',$this->data);
 	}
 
 	public function edit($id)
 	{
 		$this->data['userRoles'] 	= $this->role_model->getAll();
 		$this->data['user'] 		= $this->user_model->getDetails($id);
-		return View::make('admin/user_edit',$this->data);
+		return View::make('admin.user.edit',$this->data);
 	}
 
 	public function update($id)
