@@ -4,14 +4,14 @@ class AdminTenderController extends BaseController {
 	public function index()
 	{
 		$this->data['tenders'] = $this->tender_model->getAllDetails();
-		return View::make('admin/tender_list',$this->data);
+		return View::make('admin.tender.index',$this->data);
 	}
 
 	public function create()
 	{
 		$this->data['sales_representatives'] 	= User::Sales()->get();
 		$this->data['job_types'] 				= JobType::get();
-		return View::make('admin/tender_create',$this->data);
+		return View::make('admin.tender.create',$this->data);
 	}
 
 	public function store()
@@ -135,7 +135,7 @@ class AdminTenderController extends BaseController {
 	public function show($id)
 	{
 		$this->data['tender'] = $this->tender_model->getDetailsById($id);
-		return View::make('admin/tender_details',$this->data);
+		return View::make('admin.tender.show',$this->data);
 	}
 
 	public function edit($id)
@@ -144,7 +144,7 @@ class AdminTenderController extends BaseController {
 		$this->data['tender_status'] 			= TenderStatus::all();
 		$this->data['sales_representatives'] 	= User::Sales()->get();
 		$this->data['job_types'] 				= JobType::get();
-		return View::make('admin/tender_edit',$this->data);
+		return View::make('admin.tender.edit',$this->data);
 	}
 
 	public function update($id)
