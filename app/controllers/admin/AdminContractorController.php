@@ -10,7 +10,7 @@ class AdminContractorController extends \BaseController {
 	public function index()
 	{
 		$this->data['contractors'] = $this->contractor_model->getAllDetails();
-		return View::make('admin/contractor_list',$this->data);
+		return View::make('admin.contractor.index',$this->data);
 	}
 
 
@@ -21,7 +21,7 @@ class AdminContractorController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('admin/contractor_create',$this->data);
+		return View::make('admin.contractor.create',$this->data);
 	}
 
 
@@ -101,7 +101,7 @@ class AdminContractorController extends \BaseController {
 	public function show($id)
 	{
 		$this->data['contractor'] = $this->contractor_model->getDetailsById($id);
-		return View::make('admin/contractor_details',$this->data);
+		return View::make('admin.contractor.show',$this->data);
 	}
 
 
@@ -114,7 +114,7 @@ class AdminContractorController extends \BaseController {
 	public function edit($id)
 	{
 		$this->data['contractor'] = $this->contractor_model->getDetailsById($id);
-		return View::make('admin/contractor_edit',$this->data);
+		return View::make('admin.contractor.edit',$this->data);
 	}
 
 
