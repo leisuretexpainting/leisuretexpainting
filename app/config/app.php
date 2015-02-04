@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Barryvdh\Debugbar\ServiceProvider',
 		'Chumper\Zipper\ZipperServiceProvider',
+		'Way\Generators\GeneratorsServiceProvider'
 	),
 
 	/*
