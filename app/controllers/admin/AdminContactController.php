@@ -10,7 +10,7 @@ class AdminContactController extends \BaseController {
 	public function index()
 	{
 		$this->data['contacts'] = $this->contact_model->getAllDetails();
-		return View::make('admin/contact_list',$this->data);
+		return View::make('admin.contact.index',$this->data);
 	}
 
 
@@ -22,7 +22,7 @@ class AdminContactController extends \BaseController {
 	public function create()
 	{
 		$this->data['contractors'] = Contractor::all();
-		return View::make('admin/contact_create',$this->data);
+		return View::make('admin.contact.create',$this->data);
 	}
 
 
@@ -91,7 +91,7 @@ class AdminContactController extends \BaseController {
 	public function show($id)
 	{
 		$this->data['contact'] = $this->contact_model->getDetailsById($id);
-		return View::make('admin/contact_details',$this->data);
+		return View::make('admin.contact.show',$this->data);
 	}
 
 
@@ -105,7 +105,7 @@ class AdminContactController extends \BaseController {
 	{
 		$this->data['contact'] 		= $this->contact_model->getDetailsById($id);
 		$this->data['contractors'] 	= $this->contractor_model->getAllDetails();
-		return View::make('admin/contact_edit',$this->data);
+		return View::make('admin.contact.edit',$this->data);
 	}
 
 
