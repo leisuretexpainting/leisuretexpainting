@@ -5,11 +5,11 @@ class Tender extends Eloquent {
 	protected $table = 'tenders';
 
 	public function getDetailsById($id){
-		return Tender::with('contractor','contact','job','sales','documents')->where('id',$id)->first();
+		return Tender::with('contractor','contact','project','sales','documents')->where('id',$id)->first();
 	}
 
 	public function getAllDetails(){
-		return Tender::with('contractor','contact','job','sales','documents')->get();
+		return Tender::with('contractor','contact','project','sales','documents')->get();
 	}
 
 	public function store($data){
@@ -19,7 +19,7 @@ class Tender extends Eloquent {
 		
 		$contractor = ($contractor_id != null) 	? Contractor::find($contractor_id) 	: new Contractor();
 		$contact 	= ($contact_id != null)		? Contact::find($contact_id) 		: new Contact();
-		$job 		= new Job();
+		$project 		= new Project();
 		$tender 	= new Tender();
 				
 		$contractor->name 						= $data['contractor_name'];
@@ -42,19 +42,19 @@ class Tender extends Eloquent {
 		$contact->grade 						= $data['contact_grade'];
 		$contact->save();
 
-		$job->due_date 							= $data['job_due_date'];
-		$job->name 								= $data['job_name'];
-		$job->type 								= $data['job_type_id'];
-		$job->address_zip 						= $data['job_address_zip'];
-		$job->address_suburb 					= $data['job_address_suburb'];
-		$job->address_state 					= $data['job_address_state'];
-		$job->address_zip 						= $data['job_address_zip'];
-		$job->save();
+		$project->due_date 							= $data['project_due_date'];
+		$project->name 								= $data['project_name'];
+		$project->type 								= $data['project_type_id'];
+		$project->address_zip 						= $data['project_address_zip'];
+		$project->address_suburb 					= $data['project_address_suburb'];
+		$project->address_state 					= $data['project_address_state'];
+		$project->address_zip 						= $data['project_address_zip'];
+		$project->save();
 	
 		$tender->contractor_id 	= $contractor->id;
 		$tender->contact_id 	= $contact->id;
-		$tender->sales_id 		= $data['job_sales_id'];
-		$tender->job_id 		= $job->id;
+		$tender->sales_id 		= $data['project_sales_id'];
+		$tender->project_id 	= $project->id;
 		if($tender->save()){
 			/*save related documents if available*/
 			$uploaded_documents 	= array();
@@ -96,20 +96,20 @@ class Tender extends Eloquent {
 		$contact->phone 						= $data['contact_phone'];
 		$contact->grade 						= $data['contact_grade'];
 
-		$tender->job->due_date 							= $data['job_due_date'];
-		$tender->job->name 								= $data['job_name'];
-		$tender->job->type 								= $data['job_type_id'];
-		$tender->job->address_zip 						= $data['job_address_zip'];
-		$tender->job->address_suburb 					= $data['job_address_suburb'];
-		$tender->job->address_state 					= $data['job_address_state'];
-		$tender->job->address_zip 						= $data['job_address_zip'];
-		$tender->job->save();
+		$tender->project->due_date 							= $data['project_due_date'];
+		$tender->project->name 								= $data['project_name'];
+		$tender->project->type 								= $data['project_type_id'];
+		$tender->project->address_zip 						= $data['project_address_zip'];
+		$tender->project->address_suburb 					= $data['project_address_suburb'];
+		$tender->project->address_state 					= $data['project_address_state'];
+		$tender->project->address_zip 						= $data['project_address_zip'];
+		$tender->project->save();
 		
 		$tender->status 		= $data['tender_status'];	
 		$tender->contractor_id 	= $contractor->id;
 		$tender->contact_id 	= $contact->id;
-		$tender->sales_id 		= $data['job_sales_id'];
-		$tender->job_id 		= $tender->job->id;
+		$tender->sales_id 		= $data['project_sales_id'];
+		$tender->project_id 		= $tender->project->id;
 		if($tender->save()){
 			/*save related documents if available*/
 			if(isset($data['uploaded_documents']) && is_array($data['uploaded_documents'])){
@@ -132,8 +132,8 @@ class Tender extends Eloquent {
 	public function contact(){
 		return $this->belongsTo('Contact');
 	}
-	public function job(){
-		return $this->belongsTo('Job');
+	public function project(){
+		return $this->belongsTo('Project');
 	}
 	public function sales(){
 		return $this->belongsTo('User','sales_id','id');

@@ -21,7 +21,7 @@
     </div>
     <div class="col-lg-10">
 		<div class="panel panel-primary">
-        	<div class="panel-heading">Job Details&nbsp;</div>
+        	<div class="panel-heading">Project Details&nbsp;</div>
         	<div class="panel-body">
 	            <div class="table-responsive">
 	                <table class="table">
@@ -42,12 +42,12 @@
 		                    <td style="vertical-align:middle;width:15%"><label>Due Date</label></td>
 		                    <td>
 		                    	<div class="form-group" style="margin:0px;width:40%">
-		                    		<label style="display:none;" class="control-label" for="job_due_date"></label>
+		                    		<label style="display:none;" class="control-label" for="project_due_date"></label>
 		                            <div class="input-group">
 		                                <div class="input-group-addon">
 		                                    <i class="fa fa-calendar"></i>
 		                                </div>
-		                                <input id="job_due_date" name="job_due_date" type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="" placeholder="mm/dd/yyyy" value="{{$tender->job->due_date}}">
+		                                <input id="project_due_date" name="project_due_date" type="text" class="form-control" data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="" placeholder="mm/dd/yyyy" value="{{$tender->project->due_date}}">
 		                            </div>
 		                        </div>
 		                    </td>
@@ -56,8 +56,8 @@
 		                    <td style="width:vertical-align:middle;"><label>Sales Representative</label></td>
 		                    <td>
 								<div class="form-group" style="margin:0px;width:40%">
-		                            <label style="display:none;" class="control-label" for="job_sales_id"></label>
-		                            <select id="job_sales_id" name="job_sales_id" class="form-control">
+		                            <label style="display:none;" class="control-label" for="project_sales_id"></label>
+		                            <select id="project_sales_id" name="project_sales_id" class="form-control">
 		                            	@foreach($sales_representatives as $sales)
 	                            		<option value="{{$sales->id}}"  {{($tender->sales->id == $sales->id) ? 'selected' : ''}}>{{$sales->name}}</option>
 	                            		@endforeach
@@ -66,47 +66,47 @@
 		                    </td>
 		                </tr>
 		                <tr>
-		                    <td style="width:vertical-align:middle;"><label>Job Name</label></td>
+		                    <td style="width:vertical-align:middle;"><label>Project Name</label></td>
 		                    <td>
 		                        <div class="form-group" style="margin:0px;width:91%;">
-		                            <label style="display:none;" class="control-label" for="job_name"></label>
-		                            <input id="job_name" name="job_name" class="form-control" style="text-align:left;" placeholder="job name (required)" value="{{$tender->job->name}}"/>
+		                            <label style="display:none;" class="control-label" for="project_name"></label>
+		                            <input id="project_name" name="project_name" class="form-control" style="text-align:left;" placeholder="project name (required)" value="{{$tender->project->name}}"/>
 		                        </div>
 		                    </td>
 		                </tr>
 		                <tr>
-		                    <td style="width:vertical-align:middle;"><label>Job Type</label></td>
+		                    <td style="width:vertical-align:middle;"><label>Project Type</label></td>
 		                    <td>
 		                        <div class="form-group" style="margin:0px;width:40%">
-		                            <label style="display:none;" class="control-label" for="job_type_id"></label>
-		                            <select id="job_type_id" name="job_type_id" class="form-control">
-		                            	<option value="">Select Job Type</option>
-		                            	@foreach($job_types as $job_type)
-		                            	<option value="{{$job_type->id}}" {{($tender->job->type == $job_type->id) ? 'selected' : '' }}>{{$job_type->name}}</option>
+		                            <label style="display:none;" class="control-label" for="project_type_id"></label>
+		                            <select id="project_type_id" name="project_type_id" class="form-control">
+		                            	<option value="">Select Project Type</option>
+		                            	@foreach($project_types as $project_type)
+		                            	<option value="{{$project_type->id}}" {{($tender->project->type == $project_type->id) ? 'selected' : '' }}>{{$project_type->name}}</option>
 		                            	@endforeach
 		                            </select>
 		                        </div>
 		                    </td>
 		                </tr>
 		                <tr>
-		                    <td style="width:vertical-align:middle;"><label>Job Address</label></td>
+		                    <td style="width:vertical-align:middle;"><label>Project Address</label></td>
 		                    <td>
 		                    	<div class="form-inline">
 		                        <div class="form-group" style="margin:0px;width:30%;">
-		                            <label style="display:none;" class="control-label" for="job_address_street"></label>
-		                            <input id="job_address_street" name="job_address_street" class="form-control" placeholder="street" style="width:100%;" value="{{$tender->job->address_street}}"/>
+		                            <label style="display:none;" class="control-label" for="project_address_street"></label>
+		                            <input id="project_address_street" name="project_address_street" class="form-control" placeholder="street" style="width:100%;" value="{{$tender->project->address_street}}"/>
 		                        </div>
 		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="job_address_suburb"></label>
-		                            <input id="job_address_suburb" name="job_address_suburb" class="form-control" placeholder="suburb" style="width:100%;" value="{{$tender->job->address_suburb}}"/>
+		                            <label style="display:none;" class="control-label" for="project_address_suburb"></label>
+		                            <input id="project_address_suburb" name="project_address_suburb" class="form-control" placeholder="suburb" style="width:100%;" value="{{$tender->project->address_suburb}}"/>
 		                        </div>
 		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="job_address_state"></label>
-		                            <input id="job_address_state" name="job_address_state" class="form-control" placeholder="state" style="width:100%;" value="{{$tender->job->address_state}}"/>
+		                            <label style="display:none;" class="control-label" for="project_address_state"></label>
+		                            <input id="project_address_state" name="project_address_state" class="form-control" placeholder="state" style="width:100%;" value="{{$tender->project->address_state}}"/>
 		                        </div>
 		                        <div class="form-group" style="margin:0px;width:20%;">
-		                            <label style="display:none;" class="control-label" for="job_address_zip"></label>
-		                            <input id="job_address_zip" name="job_address_zip" class="form-control" placeholder="zip code" style="width:100%;" value="{{$tender->job->address_zip}}"/>
+		                            <label style="display:none;" class="control-label" for="project_address_zip"></label>
+		                            <input id="project_address_zip" name="project_address_zip" class="form-control" placeholder="zip code" style="width:100%;" value="{{$tender->project->address_zip}}"/>
 		                        </div>
 		                    </div>
 		                    </td>

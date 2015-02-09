@@ -423,7 +423,7 @@ var ltp_admin = function(){
         self.init_typeahead_contractors();
         self.init_tender_actions();
 
-        $("#job_due_date").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+        $("#project_due_date").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
         $('#admin-tenders-list').dataTable({
             "aoColumnDefs": [
                 { 'bSortable': false, 'aTargets': [ 0,6 ] }
@@ -732,14 +732,14 @@ var ltp_admin = function(){
                         if($('#new_contact').val() == 1 && undefined != result.error_message.contact_phone) { self.show_form_group_error('new_contact_phone',result.error_message.contact_phone);   }
                         if($('#new_contact').val() == 1 && undefined != result.error_message.contact_grade) { self.show_form_group_error('new_contact_grade',result.error_message.contact_grade);   }
 
-                        if(undefined != result.error_message.job_due_date)          { $('#job_due_date').parent().parent().addClass('has-error');$('#job_due_date').parent().parent().find('label').text(result.error_message.job_due_date);$('#job_due_date').parent().parent().find('label').show(); }
-                        if(undefined != result.error_message.job_sales_id)          { self.show_form_group_error('job_sales_id',result.error_message.job_sales_id); }
-                        if(undefined != result.error_message.job_name)              { self.show_form_group_error('job_name',result.error_message.job_name); }
-                        if(undefined != result.error_message.job_type_id)           { self.show_form_group_error('job_type_id',result.error_message.job_type_id); }
-                        if(undefined != result.error_message.job_address_street)    { self.show_form_group_error('job_address_street',result.error_message.job_address_street); }
-                        if(undefined != result.error_message.job_address_suburb)    { self.show_form_group_error('job_address_suburb',result.error_message.job_address_suburb); }
-                        if(undefined != result.error_message.job_address_state)     { self.show_form_group_error('job_address_state',result.error_message.job_address_state); }
-                        if(undefined != result.error_message.job_address_zip)       { self.show_form_group_error('job_address_zip',result.error_message.job_address_zip); }
+                        if(undefined != result.error_message.project_due_date)          { $('#project_due_date').parent().parent().addClass('has-error');$('#project_due_date').parent().parent().find('label').text(result.error_message.project_due_date);$('#project_due_date').parent().parent().find('label').show(); }
+                        if(undefined != result.error_message.project_sales_id)          { self.show_form_group_error('project_sales_id',result.error_message.project_sales_id); }
+                        if(undefined != result.error_message.project_name)              { self.show_form_group_error('project_name',result.error_message.project_name); }
+                        if(undefined != result.error_message.project_type_id)           { self.show_form_group_error('project_type_id',result.error_message.project_type_id); }
+                        if(undefined != result.error_message.project_address_street)    { self.show_form_group_error('project_address_street',result.error_message.project_address_street); }
+                        if(undefined != result.error_message.project_address_suburb)    { self.show_form_group_error('project_address_suburb',result.error_message.project_address_suburb); }
+                        if(undefined != result.error_message.project_address_state)     { self.show_form_group_error('project_address_state',result.error_message.project_address_state); }
+                        if(undefined != result.error_message.project_address_zip)       { self.show_form_group_error('project_address_zip',result.error_message.project_address_zip); }
 
                     }
                     $("html, body").animate({scrollTop: 0}, 100);
@@ -783,14 +783,14 @@ var ltp_admin = function(){
                         if($('#new_contact').val() == 1 && undefined != result.error_message.contact_phone) { self.show_form_group_error('new_contact_phone',result.error_message.contact_phone);   }
                         if($('#new_contact').val() == 1 && undefined != result.error_message.contact_grade) { self.show_form_group_error('new_contact_grade',result.error_message.contact_grade);   }
 
-                        if(undefined != result.error_message.job_due_date)          { $('#job_due_date').parent().parent().addClass('has-error');$('#job_due_date').parent().parent().find('label').text(result.error_message.job_due_date);$('#job_due_date').parent().parent().find('label').show(); }
-                        if(undefined != result.error_message.job_sales_id)          { self.show_form_group_error('job_sales_id',result.error_message.job_sales_id); }
-                        if(undefined != result.error_message.job_name)              { self.show_form_group_error('job_name',result.error_message.job_name); }
-                        if(undefined != result.error_message.job_type_id)           { self.show_form_group_error('job_type_id',result.error_message.job_type_id); }
-                        if(undefined != result.error_message.job_address_street)    { self.show_form_group_error('job_address_street',result.error_message.job_address_street); }
-                        if(undefined != result.error_message.job_address_suburb)    { self.show_form_group_error('job_address_suburb',result.error_message.job_address_suburb); }
-                        if(undefined != result.error_message.job_address_state)     { self.show_form_group_error('job_address_state',result.error_message.job_address_state); }
-                        if(undefined != result.error_message.job_address_zip)       { self.show_form_group_error('job_address_zip',result.error_message.job_address_zip); }
+                        if(undefined != result.error_message.project_due_date)          { $('#project_due_date').parent().parent().addClass('has-error');$('#project_due_date').parent().parent().find('label').text(result.error_message.project_due_date);$('#project_due_date').parent().parent().find('label').show(); }
+                        if(undefined != result.error_message.project_sales_id)          { self.show_form_group_error('project_sales_id',result.error_message.project_sales_id); }
+                        if(undefined != result.error_message.project_name)              { self.show_form_group_error('project_name',result.error_message.project_name); }
+                        if(undefined != result.error_message.project_type_id)           { self.show_form_group_error('project_type_id',result.error_message.project_type_id); }
+                        if(undefined != result.error_message.project_address_street)    { self.show_form_group_error('project_address_street',result.error_message.project_address_street); }
+                        if(undefined != result.error_message.project_address_suburb)    { self.show_form_group_error('project_address_suburb',result.error_message.project_address_suburb); }
+                        if(undefined != result.error_message.project_address_state)     { self.show_form_group_error('project_address_state',result.error_message.project_address_state); }
+                        if(undefined != result.error_message.project_address_zip)       { self.show_form_group_error('project_address_zip',result.error_message.project_address_zip); }
 
                     }
                     $("html, body").animate({scrollTop: 0}, 100);
@@ -867,14 +867,14 @@ var ltp_admin = function(){
         $('#table-contact-details').hide();
         $('#table-new-contact').hide();
 
-        $('#job_due_date').val('');
-        $('#job_sales_id').val('');
-        $('#job_name').val('');
-        $('#job_type_id').val('');
-        $('#job_address_street').val('');
-        $('#job_address_suburb').val('');
-        $('#job_address_state').val('');
-        $('#job_address_zip').val('');
+        $('#project_due_date').val('');
+        $('#project_sales_id').val('');
+        $('#project_name').val('');
+        $('#project_type_id').val('');
+        $('#project_address_street').val('');
+        $('#project_address_suburb').val('');
+        $('#project_address_state').val('');
+        $('#project_address_zip').val('');
         $('#fileupload-preview').html('');
     }
 }

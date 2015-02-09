@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobTypeTable extends Migration {
+class CreateProjectTypeTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateJobTypeTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('job_types',function($table){
+		Schema::create('project_types',function($table){
 			$table->string('id');
 			$table->string('name')->unique();
 			$table->timestamps();
@@ -27,7 +27,7 @@ class CreateJobTypeTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('job_types');
+		Schema::drop('project_types');
 	}
 
 }

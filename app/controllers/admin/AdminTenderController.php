@@ -10,7 +10,7 @@ class AdminTenderController extends BaseController {
 	public function create()
 	{
 		$this->data['sales_representatives'] 	= User::Sales()->get();
-		$this->data['job_types'] 				= JobType::get();
+		$this->data['project_types'] 			= ProjectType::get();
 		return View::make('admin.tender.create',$this->data);
 	}
 
@@ -44,15 +44,15 @@ class AdminTenderController extends BaseController {
 					,'contact_phone' 	=> ($new_contact) 	? $input['new_contact_phone'] 		: $input['contact_phone']
 				);
 		
-		$job = array(
-				 'job_due_date' 		=> (isset($input['job_due_date'])) 			? date('Y-m-d',strtotime($input['job_due_date'])) : ''
-				,'job_sales_id' 		=> (isset($input['job_sales_id'])) 			? $input['job_sales_id'] 		: ''
-				,'job_name' 			=> (isset($input['job_name'])) 				? $input['job_name'] 			: ''
-				,'job_type_id' 			=> (isset($input['job_type_id'])) 			? $input['job_type_id'] 		: ''
-				,'job_address_street' 	=> (isset($input['job_address_street'])) 	? $input['job_address_street'] 	: ''
-				,'job_address_suburb' 	=> (isset($input['job_address_suburb'])) 	? $input['job_address_suburb'] 	: ''
-				,'job_address_state' 	=> (isset($input['job_address_state'])) 	? $input['job_address_state'] 	: ''
-				,'job_address_zip' 		=> (isset($input['job_address_zip'])) 		? $input['job_address_zip'] 	: ''
+		$project = array(
+				 'project_due_date' 		=> (isset($input['project_due_date'])) 			? date('Y-m-d',strtotime($input['project_due_date'])) : ''
+				,'project_sales_id' 		=> (isset($input['project_sales_id'])) 			? $input['project_sales_id'] 		: ''
+				,'project_name' 			=> (isset($input['project_name'])) 				? $input['project_name'] 			: ''
+				,'project_type_id' 			=> (isset($input['project_type_id'])) 			? $input['project_type_id'] 		: ''
+				,'project_address_street' 	=> (isset($input['project_address_street'])) 	? $input['project_address_street'] 	: ''
+				,'project_address_suburb' 	=> (isset($input['project_address_suburb'])) 	? $input['project_address_suburb'] 	: ''
+				,'project_address_state' 	=> (isset($input['project_address_state'])) 	? $input['project_address_state'] 	: ''
+				,'project_address_zip' 		=> (isset($input['project_address_zip'])) 		? $input['project_address_zip'] 	: ''
 
 			);
 
@@ -83,14 +83,14 @@ class AdminTenderController extends BaseController {
 					,'contact_email' 						=> 'required'
 					,'contact_phone' 						=> 'required'
 					,'contact_grade' 						=> 'required'
-					,'job_due_date' 						=> 'required'
-					,'job_sales_id' 						=> 'required'
-					,'job_name' 							=> 'required|unique:jobs,name'
-					,'job_type_id' 							=> 'required'
-					,'job_address_zip' 						=> ''
-					,'job_address_suburb' 					=> ''
-					,'job_address_state' 					=> ''
-					,'job_address_zip' 						=> ''
+					,'project_due_date' 					=> 'required'
+					,'project_sales_id' 					=> 'required'
+					,'project_name' 						=> 'required|unique:projects,name'
+					,'project_type_id' 						=> 'required'
+					,'project_address_zip' 					=> ''
+					,'project_address_suburb' 				=> ''
+					,'project_address_state' 				=> ''
+					,'project_address_zip' 					=> ''
 				);
 		$validation_messages = array(
 					 'contractor_id.required' 				=> "Contractor details doesn't exist"
@@ -104,14 +104,14 @@ class AdminTenderController extends BaseController {
 					,'contact_email.required' 				=> "Contact email address is required"
 					,'contact_email.unique' 				=> "Contact email address has been taken"
 					,'contact_phone.required'				=> "Contact phone number is required"
-					,'job_due_date.required' 				=> 'Job due date is required'
-					,'job_sales_id.required' 				=> 'Job sales representative is required'
-					,'job_name.required' 					=> 'Job name is required'
-					,'job_name.unique' 						=> 'Job name already exists'
-					,'job_type_id.required' 				=> 'Job type is required'
+					,'project_due_date.required' 			=> 'Project due date is required'
+					,'project_sales_id.required' 			=> 'Project sales representative is required'
+					,'project_name.required' 				=> 'Project name is required'
+					,'project_name.unique' 					=> 'Project name already exists'
+					,'project_type_id.required' 			=> 'Project type is required'
 				);
 
-		$tender_data = array_merge($contractor,$contact,$job,$uploaded_documents);		
+		$tender_data = array_merge($contractor,$contact,$project,$uploaded_documents);		
 		$validator = Validator::make($tender_data,$validation_rules,$validation_messages);
 		
 		if($validator->passes()){
@@ -143,7 +143,7 @@ class AdminTenderController extends BaseController {
 		$this->data['tender'] 					= $this->tender_model->getDetailsById($id);
 		$this->data['tender_status'] 			= TenderStatus::all();
 		$this->data['sales_representatives'] 	= User::Sales()->get();
-		$this->data['job_types'] 				= JobType::get();
+		$this->data['project_types'] 			= ProjectType::get();
 		return View::make('admin.tender.edit',$this->data);
 	}
 
@@ -179,15 +179,15 @@ class AdminTenderController extends BaseController {
 					,'contact_phone' 	=> ($new_contact) 	? $input['new_contact_phone'] 		: $input['contact_phone']
 				);
 		
-		$job = array(
-				 'job_due_date' 		=> (isset($input['job_due_date'])) 			? date('Y-m-d',strtotime($input['job_due_date'])) : ''
-				,'job_sales_id' 		=> (isset($input['job_sales_id'])) 			? $input['job_sales_id'] 		: ''
-				,'job_name' 			=> (isset($input['job_name'])) 				? $input['job_name'] 			: ''
-				,'job_type_id' 			=> (isset($input['job_type_id'])) 			? $input['job_type_id'] 		: ''
-				,'job_address_street' 	=> (isset($input['job_address_street'])) 	? $input['job_address_street'] 	: ''
-				,'job_address_suburb' 	=> (isset($input['job_address_suburb'])) 	? $input['job_address_suburb'] 	: ''
-				,'job_address_state' 	=> (isset($input['job_address_state'])) 	? $input['job_address_state'] 	: ''
-				,'job_address_zip' 		=> (isset($input['job_address_zip'])) 		? $input['job_address_zip'] 	: ''
+		$project = array(
+				 'project_due_date' 		=> (isset($input['project_due_date'])) 			? date('Y-m-d',strtotime($input['project_due_date'])) : ''
+				,'project_sales_id' 		=> (isset($input['project_sales_id'])) 			? $input['project_sales_id'] 		: ''
+				,'project_name' 			=> (isset($input['project_name'])) 				? $input['project_name'] 			: ''
+				,'project_type_id' 			=> (isset($input['project_type_id'])) 			? $input['project_type_id'] 		: ''
+				,'project_address_street' 	=> (isset($input['project_address_street'])) 	? $input['project_address_street'] 	: ''
+				,'project_address_suburb' 	=> (isset($input['project_address_suburb'])) 	? $input['project_address_suburb'] 	: ''
+				,'project_address_state' 	=> (isset($input['project_address_state'])) 	? $input['project_address_state'] 	: ''
+				,'project_address_zip' 		=> (isset($input['project_address_zip'])) 		? $input['project_address_zip'] 	: ''
 
 			);
 
@@ -218,14 +218,14 @@ class AdminTenderController extends BaseController {
 					,'contact_email' 						=> 'required'
 					,'contact_phone' 						=> 'required'
 					,'contact_grade' 						=> 'required'
-					,'job_due_date' 						=> 'required'
-					,'job_sales_id' 						=> 'required'
-					,'job_name' 							=> (isset($job['job_name']) && $job['job_name'] == $tender_details->job->name) ? 'required' : 'required|unique:jobs,name'
-					,'job_type_id' 							=> 'required'
-					,'job_address_zip' 						=> ''
-					,'job_address_suburb' 					=> ''
-					,'job_address_state' 					=> ''
-					,'job_address_zip' 						=> ''
+					,'project_due_date' 						=> 'required'
+					,'project_sales_id' 						=> 'required'
+					,'project_name' 							=> (isset($project['project_name']) && $project['project_name'] == $tender_details->project->name) ? 'required' : 'required|unique:projects,name'
+					,'project_type_id' 							=> 'required'
+					,'project_address_zip' 						=> ''
+					,'project_address_suburb' 					=> ''
+					,'project_address_state' 					=> ''
+					,'project_address_zip' 						=> ''
 				);
 		$validation_messages = array(
 					 'contractor_id.required' 				=> "Contractor details doesn't exist"
@@ -239,14 +239,14 @@ class AdminTenderController extends BaseController {
 					,'contact_email.required' 				=> "Contact email address is required"
 					,'contact_email.unique' 				=> "Contact email address has been taken"
 					,'contact_phone.required'				=> "Contact phone number is required"
-					,'job_due_date.required' 				=> 'Job due date is required'
-					,'job_sales_id.required' 				=> 'Job sales representative is required'
-					,'job_name.required' 					=> 'Job name is required'
-					,'job_name.unique' 						=> 'Job name already exists'
-					,'job_type_id.required' 				=> 'Job type is required'
+					,'project_due_date.required' 			=> 'Project due date is required'
+					,'project_sales_id.required' 			=> 'Project sales representative is required'
+					,'project_name.required' 				=> 'Project name is required'
+					,'project_name.unique' 					=> 'Project name already exists'
+					,'project_type_id.required' 			=> 'Project type is required'
 				);
 
-		$tender_data = array_merge($tender_data,$contractor,$contact,$job,$uploaded_documents);		
+		$tender_data = array_merge($tender_data,$contractor,$contact,$project,$uploaded_documents);		
 		$validator = Validator::make($tender_data,$validation_rules,$validation_messages);
 		
 		if($validator->passes()){

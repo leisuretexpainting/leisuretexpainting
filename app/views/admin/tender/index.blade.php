@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th style="width:5%;">Id</th>
-                                <th style="width:auto">Job Name</th>
+                                <th style="width:auto">Project Name</th>
                                 <th style="width:20%;">Contractor Name</th>
                                 <th style="width:10%">Contact Name</th>
                                 <th style="width:10%">Sales Representative</th>
@@ -34,7 +34,7 @@
                         	@foreach($tenders as $tender)
                             <tr>
                             	<td>{{$tender->id}}</td>
-                                <td>{{$tender->job->name}}</td>
+                                <td>{{$tender->project->name}}</td>
                                 <td>{{$tender->contractor->name}}</td>
                                 <td>{{$tender->contact->name}}</td>
                                 <td>{{$tender->sales->name}}</td>

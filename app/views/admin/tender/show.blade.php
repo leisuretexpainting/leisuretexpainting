@@ -2,7 +2,7 @@
 @section('content')
 <div id="content-header" class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">{{$tender->job->name}}</h1>
+        <h1 class="page-header">{{$tender->project->name}}</h1>
         <ol class="breadcrumb">
             <li><a href="javascript:;"><i class="fa fa-file"></i> Tenders</a></li>
             <li><a href="/admin/tenders">Manage Tenders</a></li>
@@ -24,14 +24,14 @@
                     </div>
                     <div class="row col-lg-12">
                         <div class="col-lg-1"><label class="control-label">Job Title:</label></div>
-                        <div class="col-lg-11">{{$tender->job->name}}</div>
+                        <div class="col-lg-11">{{$tender->project->name}}</div>
                     </div>
                     <div class="row col-lg-12">
                         <div class="col-lg-1"><label class="control-label">Address:</label></div>
-                        <div class="col-lg-3">{{$tender->job->address_street}}</div>
-                        <div class="col-lg-2">{{$tender->job->address_suburb}}</div>
-                        <div class="col-lg-2">{{$tender->job->address_state}}</div>
-                        <div class="col-lg-1">{{$tender->job->address_zip}}</div>
+                        <div class="col-lg-3">{{$tender->project->address_street}}</div>
+                        <div class="col-lg-2">{{$tender->project->address_suburb}}</div>
+                        <div class="col-lg-2">{{$tender->project->address_state}}</div>
+                        <div class="col-lg-1">{{$tender->project->address_zip}}</div>
                     </div>
                     <div class="row col-lg-12">
                         <div class="col-lg-1"></div>
@@ -46,15 +46,15 @@
                     </div>
                     <div class="row col-lg-12">
                         <div class="col-lg-1"><label class="control-label">Due Date:</label></div>
-                        <div class="col-lg-11">{{date('M d, Y',strtotime($tender->job->due_date))}}</div>
+                        <div class="col-lg-11">{{date('M d, Y',strtotime($tender->project->due_date))}}</div>
                     </div>
                     <div class="row col-lg-12">
                         <div class="col-lg-1"><label class="control-label">Date Created:</label></div>
-                        <div class="col-lg-11">{{date('M d, Y H:g:s',strtotime($tender->job->created_at))}}</div>
+                        <div class="col-lg-11">{{date('M d, Y H:g:s',strtotime($tender->project->created_at))}}</div>
                     </div>
                     <div class="row col-lg-12">
                         <div class="col-lg-1"><label class="control-label">Date Modified:</label></div>
-                        <div class="col-lg-11">{{date('M d, Y H:g:s',strtotime($tender->job->updated_at))}}</div>
+                        <div class="col-lg-11">{{date('M d, Y H:g:s',strtotime($tender->project->updated_at))}}</div>
                     </div>
                 </div>
             </div>

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UserTableSeeder');
 		$this->call('ContractorTableSeeder');
 		$this->call('ContactTableSeeder');
-		$this->call('JobTypeTableSeeder');
+		$this->call('ProjectTypeTableSeeder');
 		$this->call('TenderStatusTableSeeder');
 	}
 
@@ -140,10 +140,10 @@ class ContactTableSeeder extends seeder {
 	}
 }
 
-class JobTypeTableSeeder extends seeder {
+class ProjectTypeTableSeeder extends seeder {
 	public function run(){
-		DB::table('job_types')->delete();
-		DB::table('job_types')->insert(array(
+		DB::table('project_types')->delete();
+		DB::table('project_types')->insert(array(
 			 array('id' 	=> '101','name' => 'Body Corporate / Commercial')
 			,array('id' 	=> '102','name' => 'New Construction')
 			,array('id' 	=> '103','name' => 'Residential / Private')
