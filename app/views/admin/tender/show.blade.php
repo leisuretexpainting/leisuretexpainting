@@ -15,7 +15,7 @@
         <div class="col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <span class="panel-title">Job Details</span>
+                    <span class="panel-title">Project Details</span>
                 </div>
                 <div class="panel-body">
                     <div class="row col-lg-12">
@@ -23,7 +23,7 @@
                         <div class="col-lg-11">{{$tender->tenderStatus->text}}</div>
                     </div>
                     <div class="row col-lg-12">
-                        <div class="col-lg-1"><label class="control-label">Job Title:</label></div>
+                        <div class="col-lg-1"><label class="control-label">Project Title:</label></div>
                         <div class="col-lg-11">{{$tender->project->name}}</div>
                     </div>
                     <div class="row col-lg-12">
