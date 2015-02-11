@@ -16,12 +16,15 @@ class DatabaseSeeder extends Seeder {
 		$this->call('ContactTableSeeder');
 		$this->call('ProjectTypeTableSeeder');
 		$this->call('TenderStatusTableSeeder');
+		$this->call('SubstrateTableSeeder');
+		$this->call('ItemCategoriesTableSeeder');
 	}
 
 }
 
 class RoleTableSeeder extends seeder {
 	public function run(){
+		DB::table('users')->delete();
 		DB::table('roles')->delete();
 		DB::table('roles')->insert(array(
 			 array('id' => 1,'title' => 'Administrator')
@@ -158,6 +161,31 @@ class TenderStatusTableSeeder extends seeder {
 			 array('code' => '101','text' => 'Awaiting take off material')
 			,array('code' => '102','text' => 'Awaiting quotation')
 			,array('code' => '103','text' => 'Quotation sent')
+		));
+	}
+}
+
+class SubstrateTableSeeder extends seeder {
+	public function run(){
+		DB::table('substrates')->delete();
+		DB::table('substrates')->insert(array(
+			 array('name' => 'Billaboard')
+			,array('name' => 'Block Work')
+			,array('name' => 'Fiber Cement')
+			,array('name' => 'Off Form Concrete')
+			,array('name' => 'Plasterboard')
+			,array('name' => 'Plasterboard Moisture Resistant')
+			,array('name' => 'Steel')
+			,array('name' => 'Timber')
+		));
+	}
+}
+
+class ItemCategoriesTableSeeder extends seeder {
+	public function run(){
+		DB::table('categories')->delete();
+		DB::table('categories')->insert(array(
+			 array('name' => 'painting')
 		));
 	}
 }
