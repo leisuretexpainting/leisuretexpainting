@@ -13,6 +13,8 @@ class BaseController extends Controller {
 		$this->tender_model		= new Tender();
 		$this->contractor_model	= new Contractor();
 		$this->contact_model	= new Contact();
+		$this->item_model		= new Item();
+		$this->quotation_model	= new Quotation();
 	}
 	/**
 	 * Setup the layout used by the controller.

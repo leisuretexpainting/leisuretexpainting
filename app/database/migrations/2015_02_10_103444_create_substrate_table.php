@@ -14,6 +14,7 @@ class CreateSubstrateTable extends Migration {
 	{
 		Schema::create('substrates',function($table){
 			$table->increments('id');
+			$table->string('code')->unique();
 			$table->string('name');
 			$table->timestamps();
 		});

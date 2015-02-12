@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder {
 		$this->call('ProjectTypeTableSeeder');
 		$this->call('TenderStatusTableSeeder');
 		$this->call('SubstrateTableSeeder');
-		$this->call('ItemCategoriesTableSeeder');
+		$this->call('ServiceTableSeeder');
+		$this->call('ItemTableSeeder');
+		$this->call('PriceTableSeeder');
 	}
 
 }
@@ -169,23 +171,53 @@ class SubstrateTableSeeder extends seeder {
 	public function run(){
 		DB::table('substrates')->delete();
 		DB::table('substrates')->insert(array(
-			 array('name' => 'Billaboard')
-			,array('name' => 'Block Work')
-			,array('name' => 'Fiber Cement')
-			,array('name' => 'Off Form Concrete')
-			,array('name' => 'Plasterboard')
-			,array('name' => 'Plasterboard Moisture Resistant')
-			,array('name' => 'Steel')
-			,array('name' => 'Timber')
+			 array('id'=>1,'code'=>'BB','name' => 'Billaboard')
+			,array('id'=>2,'code'=>'BW','name' => 'Block Work')
+			,array('id'=>3,'code'=>'FC','name' => 'Fiber Cement')
+			,array('id'=>4,'code'=>'OFC','name' => 'Off Form Concrete')
+			,array('id'=>5,'code'=>'PB','name' => 'Plasterboard')
+			,array('id'=>6,'code'=>'PBMR','name' => 'Plasterboard Moisture Resistant')
+			,array('id'=>7,'code'=>'S','name' => 'Steel')
+			,array('id'=>8,'code'=>'T','name' => 'Timber')
 		));
 	}
 }
 
-class ItemCategoriesTableSeeder extends seeder {
+class ServiceTableSeeder extends seeder {
 	public function run(){
-		DB::table('categories')->delete();
-		DB::table('categories')->insert(array(
-			 array('name' => 'painting')
+		DB::table('services')->delete();
+		DB::table('services')->insert(array(
+			  array('id' => 1,'code'=>'P','name' => 'painting')
+			 ,array('id' => 2,'code'=>'S','name' => 'rendering')
+		));
+	}
+}
+
+class ItemTableSeeder extends seeder {
+	public function run(){
+		DB::table('items')->delete();
+		DB::table('items')->insert(array(
+			  array('name' => 'Item A','service_code'=>'P')
+			 ,array('name' => 'Item B','service_code'=>'P')
+			 ,array('name' => 'Item C','service_code'=>'P')
+			 ,array('name' => 'Item D','service_code'=>'P')
+			 ,array('name' => 'Item E','service_code'=>'P')
+		));
+	}
+}
+
+class PriceTableSeeder extends seeder {
+	public function run(){
+		DB::table('item_prices')->delete();
+		DB::table('item_prices')->insert(array(
+			  array('item_id' => 1,'substrate_code'=>'BB','price'=>100)
+			 ,array('item_id' => 1,'substrate_code'=>'BW','price'=>200)
+			 ,array('item_id' => 1,'substrate_code'=>'FC','price'=>300)
+			 ,array('item_id' => 1,'substrate_code'=>'OFC','price'=>400)
+			 ,array('item_id' => 1,'substrate_code'=>'PB','price'=>500)
+			 ,array('item_id' => 1,'substrate_code'=>'PBMR','price'=>600)
+			 ,array('item_id' => 1,'substrate_code'=>'S','price'=>700)
+			 ,array('item_id' => 1,'substrate_code'=>'T','price'=>800)
 		));
 	}
 }

@@ -31,6 +31,8 @@ Route::group(array('before' => 'auth.admin'), function()
     Route::resource('admin/contractors', 'AdminContractorController');
     Route::resource('admin/contacts', 'AdminContactController');
     Route::resource('/admin/tenders','AdminTenderController');
+    Route::resource('/admin/items','AdminItemController');
+    Route::resource('/admin/quotations','AdminQuotationController');
 
     Route::post('admin/user/create','UserController@create');
     Route::get('/admin/download/{directory}/{name?}','DownloadController@download');

@@ -16,8 +16,8 @@ class CreateItemsTable extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('description')->nullable();
-			$table->integer('category_id')->length(10)->unsigned();
-			$table->foreign('category_id')->references('id')->on('categories');
+			$table->string('service_code');
+			$table->foreign('service_code')->references('code')->on('services');
 			$table->timestamps();
 		});
 	}

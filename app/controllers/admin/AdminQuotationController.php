@@ -31,7 +31,37 @@ class AdminQuotationController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		/*
+		$data = array(
+				 'tender_id' 	=> 1
+				,'quotation_by' => 1
+				,'items' 		=> array(
+										array(
+											 'id' 				=> 1
+											,'substrate_code' 	=> 'BB'
+											,'quantity' 		=> 1
+											,'unit' 			=> 'm2'
+											,'price' 			=> 100
+										),
+										array(
+											 'id' 				=> 2
+											,'substrate_code' 	=> 'BB'
+											,'quantity' 		=> 2
+											,'unit' 			=> 'm2'
+											,'price' 			=> 100
+										),
+										array(
+											 'id' 				=> 3
+											,'substrate_code' 	=> 'BB'
+											,'quantity' 		=> 2
+											,'unit' 			=> 'm2'
+											,'price' 			=> 100
+										)
+									)
+			);
+		$result = $this->quotation_model->store($data);
+		printpre($result);
+		*/
 	}
 
 

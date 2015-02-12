@@ -1,6 +1,6 @@
 <?php
 
-class ItemController extends \BaseController {
+class AdminItemController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -9,7 +9,25 @@ class ItemController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		/*
+		$data = array(
+				 'name' 		=> 'Item F'
+				,'description' 	=> 'sample description'
+				,'prices' 		=> array(
+									  'BB'		=> 100
+									 ,'BW'		=> 100
+									 ,'FC'		=> 100
+									 ,'OFC'		=> 100
+									 ,'PB'		=> 100
+									 ,'PBMR'	=> 100
+									 ,'S'		=> 100
+									 ,'T'		=> 100
+								)
+			);
+		$result = $this->item_model->store($data);
+		$result = $this->item_model->edit($data);
+		printpre($result);
+		*/
 	}
 
 
@@ -43,7 +61,8 @@ class ItemController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$item = Item::with('prices','category')->where('id',$id)->first()->toArray();
+    	printpre($item);
 	}
 
 

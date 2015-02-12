@@ -5,11 +5,11 @@ class Tender extends Eloquent {
 	protected $table = 'tenders';
 
 	public function getDetailsById($id){
-		return Tender::with('contractor','contact','project','sales','documents')->where('id',$id)->first();
+		return Tender::with('contractor','contact','project','sales','documents','quotation')->where('id',$id)->first();
 	}
 
 	public function getAllDetails(){
-		return Tender::with('contractor','contact','project','sales','documents')->get();
+		return Tender::with('contractor','contact','project','sales','documents','quotation')->get();
 	}
 
 	public function store($data){
@@ -19,7 +19,7 @@ class Tender extends Eloquent {
 		
 		$contractor = ($contractor_id != null) 	? Contractor::find($contractor_id) 	: new Contractor();
 		$contact 	= ($contact_id != null)		? Contact::find($contact_id) 		: new Contact();
-		$project 		= new Project();
+		$project 	= new Project();
 		$tender 	= new Tender();
 				
 		$contractor->name 						= $data['contractor_name'];
@@ -58,10 +58,12 @@ class Tender extends Eloquent {
 		if($tender->save()){
 			/*save related documents if available*/
 			$uploaded_documents 	= array();
-			foreach($data['uploaded_documents'] as $document){
-				$uploaded_documents[] = new TenderDocument(array('name'=>$document['name'],'text'=>$document['text'],'note'=>$document['note']));
+			if(isset($data['uploaded_documents']) && is_array($data['uploaded_documents'])){
+				foreach($data['uploaded_documents'] as $document){
+					$uploaded_documents[] = new TenderDocument(array('name'=>$document['name'],'text'=>$document['text'],'note'=>$document['note']));
+				}
+				$tender->documents()->saveMany($uploaded_documents);
 			}
-			$tender->documents()->saveMany($uploaded_documents);
 
 			return $this->getDetailsById($tender->id);
 		}else
@@ -143,5 +145,8 @@ class Tender extends Eloquent {
 	}
 	public function tenderStatus(){
 		return $this->belongsTo('TenderStatus','status','code');
+	}
+	public function quotation(){
+		return $this->hasMany('Quotation');
 	}
 }

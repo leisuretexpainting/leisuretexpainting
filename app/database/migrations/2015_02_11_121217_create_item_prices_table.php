@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePricesTable extends Migration {
+class CreateItemPricesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,13 @@ class CreatePricesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('prices',function($table){
+		Schema::create('item_prices',function($table){
 			$table->integer('item_id')->length(10)->unsigned();
-			$table->integer('substrate_id')->length(10)->unsigned();
+			$table->string('substrate_code');
 			$table->decimal('price',10,2)->default(0);
 			$table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
-			$table->foreign('substrate_id')->references('id')->on('substrates')->onDelete('no action');
-			$table->primary(array('item_id','substrate_id'));
+			$table->foreign('substrate_code')->references('code')->on('substrates')->onDelete('no action');
+			$table->primary(array('item_id','substrate_code'));
 			$table->timestamps();
 		});
 	}
@@ -30,7 +30,7 @@ class CreatePricesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('prices');
+		Schema::drop('item_prices');
 	}
 
 }

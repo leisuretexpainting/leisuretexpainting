@@ -18,7 +18,6 @@ class CreateTenderTable extends Migration {
 			$table->integer('contact_id')->length(10)->unsigned();
 			$table->integer('sales_id')->length(10)->unsigned();
 			$table->integer('project_id')->length(10)->unsigned();
-			//$table->integer('quotation_id')->length(10)->unsigned()->nullable();
 			$table->decimal('amount',10,2)->nullable();
 			$table->string('status')->default('101');
 			$table->date('start_date')->nullable();
@@ -29,7 +28,6 @@ class CreateTenderTable extends Migration {
 			$table->foreign('contact_id')->references('id')->on('contacts');
 			$table->foreign('sales_id')->references('id')->on('users');
 			$table->foreign('project_id')->references('id')->on('projects');
-			//$table->foreign('quotation_id')->references('id')->on('quotations');
 			$table->foreign('status')->references('code')->on('tender_status');
 		});
 	}
